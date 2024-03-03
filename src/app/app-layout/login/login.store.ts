@@ -21,7 +21,7 @@ const initialState: LoginState = {
           async logIntoServer(userInfo: UserInfo) {
             patchState(store, {loading: true});
             // const logedIn = await logInService.loginIntoServer(userInfo);
-            const logedIn = await logInService.logIn(userInfo, 5000).subscribe();
+            const logedIn = await logInService.logIn(userInfo, 5000);
             console.log('ewesdf')
 
               patchState(store, {loading: false});
