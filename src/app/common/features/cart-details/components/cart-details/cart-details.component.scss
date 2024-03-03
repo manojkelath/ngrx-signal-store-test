@@ -1,0 +1,19 @@
+@use "common";
+
+.cart {
+  &__button {
+    position: relative;
+  }
+
+  &__counter {
+    position: absolute;
+    top: common.pixel2rem(14);
+    left: common.pixel2rem(12);
+  }
+
+  &__details {
+    @media (hover: none) {
+      display: none;
+    }
+  }
+}

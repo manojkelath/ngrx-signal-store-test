@@ -1,0 +1,44 @@
+@use "common";
+
+:host {
+  @include common.text-overflow-ellipses(100%, block);
+  padding: 0 common.pixel2rem(18);
+  height: common.pixel2rem(30);
+  font-size: common.pixel2rem(14);
+  line-height: common.pixel2rem(30);
+  color: common.color('black');
+  background-color: common.color('white');
+  font-weight: 500;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+
+  &:hover, &.active {
+    outline: none;
+  }
+
+  &:hover,
+  &.active {
+    background-color: rgba(common.color('border'), 0.5);
+  }
+
+  &.selected {
+    background-color: rgba(common.color('border'), 0.5);
+    &:hover {
+      background-color: common.color('border')
+    }
+
+    .option__icon {
+      display: block;
+    }
+  }
+}
+
+.option__icon {
+  display: none;
+  position: absolute;
+  right: common.pixel2rem(18);
+  top: 50%;
+  transform: translateY(-50%);
+  fill: common.color('green');
+}

@@ -1,0 +1,46 @@
+<div class="kv-select__wrapper">
+	<div
+		#dropreference
+	>
+		<kv-form-control
+			[label]="label"
+			[error]="error"
+			[isPointer]="true"
+			[isAutoHeight]="multiselect"
+			[isLabelWithRequired]="isLabelWithRequired"
+      [isInline]="isInline"
+			cdkMonitorSubtreeFocus
+		>
+			<div *ngIf="!!displayMultiselectOptions.length" class="kv-select__chips">
+				<div *ngFor="let item of displayMultiselectOptions; trackBy: trackByChips" class="kv-select__chips-item">{{ item }}</div>
+			</div>
+			<input
+				#input
+        kvSelectInput
+				class="kv-form__input kv-select__input"
+				[class.kv-form__input--single]="!label"
+				[class.kv-select__input--hidden]="multiselect && !filter"
+				[disabled]="disabled"
+				[readonly]="!filter || readonly"
+				[value]="!!filter && isFocused ? filterValue : displayText"
+				(click)="showDropdown()"
+				(keyup)="onKeyUp($event)"
+				(keydown)="onKeyDown($event)"
+				(blur)="onTouched()"
+				(focus)="onFocus()"
+				autocomplete="off"
+			>
+
+      <kv-icon *ngIf="!disabled && !readonly" svgPath="chevron-down.svg" size="24" verticalSize="24" class="kv-select__icon" (click)="onDropMenuIconClick($event)"></kv-icon>
+    </kv-form-control>
+	</div>
+  <kv-select-dropdown [reference]="dropreference" #dropdownComp>
+    <div
+      class="kv-select__options-container"
+      [ngStyle]="{'max-height': maxHeight || null}"
+    >
+			<ng-content select="[filter]"></ng-content>
+			<ng-content select="kv-select-option"></ng-content>
+    </div>
+  </kv-select-dropdown>
+</div>

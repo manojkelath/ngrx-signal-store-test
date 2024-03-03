@@ -1,0 +1,63 @@
+<ng-container *transloco="let t">
+  <div
+    *ngFor="let element of dataSource"
+    [class.card-item--highlight]="element?.id && clickedRowId === element.id && !expandedTableContent"
+    [class.card-item__default]="element?.isExpandable || !isClickable"
+    [class.card-item--is-small]="isSmall"
+    class="card-item"
+  >
+    <div (click)="onClickRow(element)" class="is-flex is-align-items-start">
+      <div *ngIf="element?.isExpandable && !headerColumns?.length" class="card-item__expand-btn card-item__expand-btn--spaced">
+        <kv-icon
+          *ngIf="element?.isExpandable"
+          [class.card-item__expand-icon--expanded]="element?.id === expandedElementId"
+          class="card-item__expand-icon"
+          svgPath="account/arrow-down.svg"
+        ></kv-icon>
+      </div>
+      <div class="card-item__content">
+        <div *ngIf="headerColumns?.length" class="card-item__header">
+          <div *ngIf="element?.isExpandable" class="card-item__expand-btn">
+            <kv-icon [class.card-item__expand-icon--expanded]="element?.id === expandedElementId" class="card-item__expand-icon" svgPath="account/arrow-down.svg"></kv-icon>
+          </div>
+
+          <div class="card-item__header-content">
+            <kv-field-template
+              *ngFor="let headerColumn of headerColumns"
+              [googleAnalyticsCategory]="googleAnalyticsCategory"
+              [element]="element"
+              [tableColumn]="headerColumn"
+              (toggledChanged)="onToggledChanged($event)"
+              (actionDropdownItemClicked)="onActionDropdownItemClicked($event)"
+              (profileNameClicked)="onProfileNameClick(element.id)"
+            ></kv-field-template>
+          </div>
+        </div>
+        <ng-container *ngFor="let tableColumn of tableColumns">
+          <kv-card-row
+            class="card-item__property"
+            *ngIf="!tableColumn?.isOnlyTableField && tableColumn.type !== filedType.EXPAND && tableColumn.type !== filedType.ACTION"
+            [googleAnalyticsCategory]="googleAnalyticsCategory"
+            [element]="element"
+            [tableColumn]="tableColumn"
+            [isCopyMobile]="isCopyMobile"
+            (toggleChanged)="onToggledChanged($event)"
+            (actionDropdownItemCLicked)="onActionDropdownItemClicked($event)"
+          ></kv-card-row>
+        </ng-container>
+        <button *ngIf="element[expandListKey]?.length" class="card-item__expanded-header button-no-styles" (click)="onExpand(element)">
+          <kv-icon [class.card-item__expanded-arrow--opened]="element?.id == expandedElementId" class="card-item__expanded-arrow" svgPath="account/arrow-down.svg"></kv-icon>
+          {{ t(expandHeaderTitle) }}
+        </button>
+      </div>
+    </div>
+
+    <div [@detailExpand]="element?.id == expandedElementId ? 'expanded' : 'collapsed'" class="card-item__expanded-wrapper">
+      <div *ngIf="expandedTableContent" class="card-item__expanded-body">
+        <ng-container *ngTemplateOutlet="expandedTableContent"></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !dataSource?.length" class="empty-message-container">{{ t('shared.no-data-yet') }}</div>
+</ng-container>

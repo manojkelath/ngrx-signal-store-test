@@ -1,0 +1,47 @@
+@use 'common';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: common.$space-4;
+  gap: common.$space-2;
+  box-shadow: common.$shadow-1;
+  border-radius: common.$space-2;
+  margin-top: common.pixel2rem(24);
+}
+
+.charges {
+  &__divider {
+    height: 1px;
+    background-color: common.color('divider');
+  }
+
+  &__title {
+    font-size: common.pixel2rem(14);
+    font-weight: 900;
+  }
+}
+
+.charges-item {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__name {
+    font-size: common.pixel2rem(13);
+  }
+
+  &__price {
+    font-size: common.pixel2rem(13);
+    font-weight: 500;
+    color: common.color('text-title');
+  }
+
+  &__price-currency {
+    font-size: common.pixel2rem(12);
+    font-weight: 400;
+    margin-right: common.pixel2rem(2);
+  }
+}

@@ -1,0 +1,11 @@
+@use 'common';
+
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.kv-value--active {
+  text-align: right;
+}

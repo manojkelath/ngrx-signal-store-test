@@ -1,0 +1,19 @@
+@use 'common';
+
+.card-list {
+  display: block;
+}
+
+.table {
+  display: none;
+}
+
+@include common.media-breakpoint-up(lg) {
+  .card-list {
+    display: none;
+  }
+
+  .table {
+    display: block;
+  }
+}

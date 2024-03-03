@@ -1,0 +1,121 @@
+<ng-container *transloco="let t; read: 'product.checkout-page'">
+  <ng-container *ngIf="errorMessages?.length">
+    <div class="checkout-required__container">
+      <button class="button-no-styles checkout-required__button" (click)="onExpandRequiredItems()">
+        {{ t("some-items-require-attention") }}
+
+        <kv-icon class="checkout-required__icon" [class.checkout-required__icon--expanded]="isRequiredItemsExpanded" [svgPath]="'arrow-up.svg'"></kv-icon>
+      </button>
+
+      <ng-container *ngIf="isRequiredItemsExpanded">
+        <kv-product-required-items [errorMessages]="errorMessages"></kv-product-required-items>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <div class="product-checkout__container">
+    <div class="product-checkout__configuration">
+      <div class="product-checkout__configuration--header">
+        <div class="product-checkout__configuration--description">
+          <img class="product-checkout__img" [src]="product.smallImage" [alt]="product.description" />
+
+          <div>
+            <div class="product-checkout__configuration--title">
+              {{ product.description }}
+            </div>
+
+            <button
+              *ngIf="product.isCustomizable"
+              class="button-no-styles product-checkout__configuration--button"
+              [class.product-checkout__configuration--button-confirmation]="isReadonly && !isViewConfigurationHighlighted"
+              (click)="onExpand()"
+            >
+              {{ t("view-configuration") }}
+
+              <kv-icon
+                class="product-checkout__configuration--icon"
+                [class.product-checkout__configuration--icon-confirmation]="isReadonly && !isViewConfigurationHighlighted"
+                [class.product-checkout__configuration--icon--expanded]="isConfigurationExpanded"
+                [svgPath]="'arrow-up.svg'"
+              ></kv-icon>
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="!isReadonly" class="product-checkout__actions-wrapper product-checkout__actions-wrapper--small-screen">
+          <ng-container [ngTemplateOutlet]="actions"></ng-container>
+        </div>
+      </div>
+
+      <ng-container *ngFor="let config of productConfiguration">
+        <kv-configuration
+          *ngIf="product.isCustomizable"
+          [isReadonly]="isReadonly"
+          [productConfiguration]="config.configurationList"
+          [title]="config.productCode === product.productCode ? '' : config.productName"
+          class="product-checkout__configuration--items"
+          [class.product-checkout__configuration--items--expanded]="isConfigurationExpanded"
+        ></kv-configuration>
+      </ng-container>
+    </div>
+
+    <div class="product-checkout__addons">
+      <div class="product-checkout__addons--header" *transloco="let tPrice; read: 'price'">
+        <div class="product-checkout__addons--header--item">
+          <!-- Temporary commented out -->
+          <!-- <span class="product-checkout__addons--title">{{ t('start-date') }}</span>
+          <span class="product-checkout__addons--info">{{ cart.lastPricedDate | date: pipeFormats.DATE }}</span> -->
+        </div>
+
+        <div *ngIf="product.commitmentPeriod" class="product-checkout__addons--header--item">
+          <span class="product-checkout__addons--title">{{ t("commitment-period") }}</span>
+          <span class="product-checkout__addons--info">{{ product.commitmentPeriod }} {{ tPrice(product.recurrence) }}</span>
+        </div>
+
+        <div *transloco="let tPrice; read: 'price'" class="product-checkout__addons--header--item">
+          <span class="product-checkout__addons--title">{{ t("price") }}</span>
+          <span class="product-checkout__prices">
+            <span class="product-checkout__addons--info">
+              <span class="kv-caption kv-text-secondary-color"> {{ t(product.recurrence) }}{{ tPrice(product.currency) }}/{{ tPrice(product.recurrence) }} </span>
+              {{ product.bundleTotal || product.itemTotal | price: product.currency }}
+            </span>
+            <span *ngIf="product.bundleTotalOT" class="product-checkout__addons--info">
+              <span class="kv-caption kv-text-secondary-color"> {{ t(product.recurrence) }}{{ tPrice(product.currency) }}/{{ tPrice("ONETIME") }} </span>
+              {{ product.bundleTotalOT | price: product.currency }}
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <kv-addons *ngIf="product?.addOnItem?.length" [isReadonly]="isReadonly" [addons]="product.addOnItem" [subtotalValue]="product.bundleTotal" (removeAddon)="onRemoveAddon($event, product?.productCode)"></kv-addons>
+      <kv-bundle-items *ngIf="product?.bundleItem?.length" [bundle]="product.bundleItem"> </kv-bundle-items>
+      <kv-charges *ngIf="product?.charge?.length" [charges]="product.charge" [currency]="product?.currency"></kv-charges>
+    </div>
+
+    <div *ngIf="!isReadonly" class="product-checkout__actions-wrapper product-checkout__actions-wrapper--big-screen">
+      <ng-container [ngTemplateOutlet]="actions"></ng-container>
+    </div>
+
+    <!-- Temporary commented out -->
+    <!-- <div *ngIf="isReadonly" class="is-flex-shrink-0">
+      <div class="product-checkout__addons--header--item">
+        <span class="product-checkout__addons--title">{{ t('future-payment') }}</span>
+        <span class="product-checkout__addons--info">
+          <kv-icon [svgPath]="cart.paymentType"></kv-icon>
+        </span>
+      </div>
+    </div> -->
+  </div>
+</ng-container>
+
+<!-- Templates -->
+<ng-template #actions>
+  <div class="product-checkout__actions-container" [class.product-checkout__actions-container--no-customization]="!product?.isCustomizable">
+    <button *ngIf="product?.isCustomizable" type="button" class="button-no-styles product-checkout__action-btn" (click)="onEdit()">
+      <kv-icon class="ml-2" size="20" verticalSize="20" svgPath="pencil.svg"></kv-icon>
+    </button>
+    <button type="button" class="button-no-styles" (click)="onDelete()">
+      <kv-icon class="ml-2" svgPath="delete.svg"></kv-icon>
+    </button>
+  </div>
+</ng-template>

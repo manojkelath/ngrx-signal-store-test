@@ -1,0 +1,44 @@
+<ng-container *transloco="let t; read: 'shared'">
+  <div class="pagination__size-container">
+    <span class="kv-content-group__value pagination__size-label">{{t('rows-page')}}</span>
+    <kv-custom-select
+      class="pagination__size-selector"
+      [isSmall]="true"
+      [formControl]="selectorSize">
+      <kv-custom-select-option
+        *ngFor="let item of sizesOption"
+        [key]="item.key"
+        [value]="item.value"
+      ></kv-custom-select-option>
+    </kv-custom-select>
+  </div>
+  <div class="pagination__details">
+    <span>{{rangeStart}} - {{rangeEnd}} of {{amountElement}} </span>
+  </div>
+  <div class="pagination__page-stepper-wrap" *ngIf="lastPage>1">
+    <button
+      [disabled]="currentPage === 1"
+      (click)="onChangePage(currentPage - 1)"
+      class="pagination__page-stepper">
+      <kv-icon
+        class="pagination__left-arrow"
+        svgPath="pagination-arrow.svg"
+      ></kv-icon>
+    </button>
+    <div *ngFor="let item of paginationRange; let index = index"
+         class="pagination__page-stepper"
+         [class.pagination__page-stepper--dots]="item.label === labelDots"
+         [class.pagination__page-stepper--active]="currentPage === item.value"
+         (click)="onChangePage(item.value)">
+      {{ item.label }}
+    </div>
+    <button
+      [disabled]="currentPage === lastPage"
+      (click)="onChangePage(currentPage + 1)"
+      class="pagination__page-stepper">
+      <kv-icon
+        svgPath="pagination-arrow.svg"
+      ></kv-icon>
+    </button>
+  </div>
+</ng-container>

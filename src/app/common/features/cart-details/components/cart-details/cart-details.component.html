@@ -1,0 +1,25 @@
+<kv-menu
+  class="is-flex is-align-items-center"
+  [connectedPositions]="connectedPositions"
+  [isOpened]="isShowCartList"
+  [hasBackdrop]="false"
+  [kvMouseLeave]="contentSelectors"
+  (mouseLeaveTriggered)="onHideCartDetails()"
+  (closed)="onHideCartDetails()"
+>
+  <button 
+    #menuConnector
+    type="button" 
+    class="cart__button button-no-styles kv-btn-icon kv-btn-icon--secondary" 
+    (click)="onCartClick()" 
+    (mouseover)="onShowCartDetails()"
+  >
+    <!-- TODO: remove custom attributes when kv-icon is refactored -->
+    <kv-icon svgPath="cart.svg" [customSvgAttributes]="{ width: 20 }"></kv-icon>
+    <div *ngIf="cartProductsAmount" class="kv-counter cart__counter">{{ cartProductsAmount }}</div>
+  </button>
+  
+  <ng-template #menuContainer>
+    <kv-cart-product-list-popup-container class="cart__details" (mouseleave)="onHideCartDetails()"></kv-cart-product-list-popup-container>
+  </ng-template>
+</kv-menu>

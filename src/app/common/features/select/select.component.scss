@@ -1,0 +1,59 @@
+@use "common";
+
+.kv-select {
+  &__wrapper {
+    position: relative;
+  }
+
+  &__input {
+    cursor: pointer;
+    padding-right: common.pixel2rem(32);
+    min-width: common.pixel2rem(150);
+    flex: 1 0 common.pixel2rem(150);
+    max-width: 100%;
+    align-self: flex-start;
+
+    &--hidden {
+      height: 0;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  &__options-container {
+    width: 100%;
+    border-radius: common.pixel2rem(5);
+    display: block;
+    overflow: auto;
+    background-color: white;
+    box-shadow: 0 0 7px rgba(20, 32, 99, 0.33);
+  }
+
+  &__icon {
+    position: absolute;
+    right: common.pixel2rem(0);
+    top: common.pixel2rem(2);
+    fill: common.color('black');
+    cursor: pointer;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -#{common.pixel2rem(4)};
+  }
+
+  &__chips-item {
+    flex-shrink: 0;
+    background-color: common.color('bg-gray');
+    font-size: common.pixel2rem(11);
+
+    padding: common.pixel2rem(3) common.pixel2rem(6);
+    margin-right: common.pixel2rem(8);
+    margin-top: common.pixel2rem(4);
+    border-radius: common.pixel2rem(4);
+    line-height: 1;
+  }
+}

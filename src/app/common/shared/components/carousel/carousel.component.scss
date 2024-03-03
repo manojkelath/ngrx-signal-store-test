@@ -1,0 +1,57 @@
+@use 'common';
+@import 'node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+
+// Overrides
+.kv-carousel {
+  .owl-carousel {
+    position: relative;
+
+    &::after {
+      @include common.shadow-blur;
+    }
+  }
+
+  .owl-prev {
+    margin-right: 0;
+    left: -#{common.pixel2rem(16)};
+  }
+
+  .owl-next {
+    right: -#{common.pixel2rem(16)};
+  }
+
+  .owl-prev, .owl-next {
+    @include common.align-center;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: common.pixel2rem(32);
+    height: common.pixel2rem(32);
+    border-radius: 50%;
+    box-shadow: common.$shadow-2;
+
+    fill: common.color('primary');
+    background-color: common.color('white');
+
+    z-index: common.$fixed-layer
+  }
+
+  .owl-item {
+    img {
+      width: unset;
+    }
+  }
+
+  .owl-stage {
+    display: flex;
+    padding-left: 0 !important;
+  }
+
+  owl-stage {
+    & > div {
+      width: common.pixel2rem(1);
+    }
+  }
+}

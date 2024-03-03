@@ -1,0 +1,19 @@
+@use 'common';
+
+:host {
+  @include common.typography('h2');
+
+  display: block;
+  font-family: common.$family-secondary;
+  color: common.color('text-title');
+}
+
+.page-title {
+  &__total  {
+    margin-left: common.pixel2rem(8);
+    font-size: common.pixel2rem(16);
+    font-weight: 400;
+    color: common.color('text-secondary')
+  }
+}
+

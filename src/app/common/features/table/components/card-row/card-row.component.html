@@ -1,0 +1,15 @@
+<ng-container *transloco="let t">
+  <span class="card-row__property-label"> {{ t(tableColumn?.title) }}</span>
+  <span class="card-row__property-value">
+    <kv-field-template
+      [googleAnalyticsCategory]="googleAnalyticsCategory"
+      [element]="element"
+      [isActionMenuShow]="false"
+      [tableColumn]="tableColumn"
+      [isCopyMobile]="isCopyMobile"
+      (toggledChanged)="onToggledChanged($event)"
+      (actionDropdownItemClicked)="onActionDropdownItemClicked($event)"
+      (profileNameClicked)="onProfileNameClick(element.id)"
+    ></kv-field-template>
+  </span>
+</ng-container>

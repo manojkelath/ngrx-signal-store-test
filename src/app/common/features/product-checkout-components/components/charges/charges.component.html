@@ -1,0 +1,20 @@
+<ng-container *transloco="let t; read: 'product.checkout-page'">
+  <span class="charges__title">{{ t("charges-title") }}</span>
+
+  <div class="charges__divider"></div>
+
+  <div *ngFor="let charge of charges" class="charges-item__wrapper">
+    <span class="charges-item__name">{{
+      charge?.title || charge?.description
+    }}</span>
+
+    <span *transloco="let tPrice; read: 'price'">
+      <span class="charges-item__price-currency"
+        >{{ tPrice(currency) }}/{{ tPrice(charge.recurrence) }}</span
+      >
+      <span class="charges-item__price">{{
+        charge.itemTotal | price: currency
+      }}</span>
+    </span>
+  </div>
+</ng-container>

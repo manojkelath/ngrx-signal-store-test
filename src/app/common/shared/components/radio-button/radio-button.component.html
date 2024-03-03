@@ -1,0 +1,16 @@
+<label
+  class="kv-radio-button__container"
+  [class.kv-radio-button__container--active]="isSelected"
+>
+  <span
+    class="kv-radio-button__radio"
+    [class.kv-radio-button__radio--active]="isSelected"
+  ></span>
+  <input
+    class="kv-radio-button__input"
+    type="radio"
+    name="radio"
+    (change)="onChanged($event)" [value]="radioValue"/>
+
+  <ng-content></ng-content>
+</label>

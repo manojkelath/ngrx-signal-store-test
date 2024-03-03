@@ -1,0 +1,7 @@
+<kv-login
+  [isSuccessfullyRegistered]="isSuccessfullyRegistered$ | async"
+  (login)="onLogin($event)"
+  (cancel)="onCancel()"
+  (forgotPassword)="onForgotPassword()"
+  (signUp)="onSignUp()"
+></kv-login>

@@ -1,0 +1,11 @@
+<button
+  *transloco="let t; read: 'shared'"
+  class="clipboard-btn kv-btn-text kv-font-secondary"
+  (click)="$event.stopPropagation()"
+  [class.has-tooltip-active]="isCopied"
+  [cdkCopyToClipboard]="copyText"
+  (cdkCopyToClipboardCopied)="onCopySuccess()"
+  [attr.data-tooltip]="t('copied')"
+>
+  {{ t('copy') }}
+</button>

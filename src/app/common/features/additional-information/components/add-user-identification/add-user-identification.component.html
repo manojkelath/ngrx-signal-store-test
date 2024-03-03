@@ -1,0 +1,30 @@
+<div class="kv-modal__page-container">
+  <div *transloco="let t; read: 'auth'" class="kv-modal__header">
+    <div class="kv-modal__title kv-heading-4">{{ t('additional-information.title') }}</div>
+
+    <button type="button" class="kv-modal__close-btn" (click)="onModalClose()">
+      <kv-icon svgPath="close.svg"></kv-icon>
+    </button>
+  </div>
+
+  <div class="kv-modal__content">
+    <kv-error-handler-container></kv-error-handler-container>
+
+    <kv-add-user-identification-form-container
+      [form]="form"
+      [isSubmitted]="isSubmitted"
+    ></kv-add-user-identification-form-container>
+  </div>
+
+  <div *transloco="let t" class="kv-modal__footer">
+    <div class="is-flex ml-auto">
+      <button type="button" class="kv-btn kv-btn--flat kv-btn--small mr-4" (click)="onCancel()">
+        {{ t('common.cancel') }}
+      </button>
+
+      <button type="submit" class="kv-btn kv-btn--primary kv-btn--small" (click)="onSubmit()">
+        {{ t('common.save') }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,168 @@
+@use 'common';
+@import '~flatpickr/dist/flatpickr.min.css';
+
+:host {
+  display: block;
+}
+
+// Make sure to put all styles inside this class as component has ViewEncapsulation.None to override datepicker styles
+.flatpickr-datepicker-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+// Overrides for flatpickr classes
+.ng2-flatpickr-input {
+  outline: 0;
+  padding: 0;
+  box-shadow: none !important;
+  background: transparent;
+  border: none;
+  color: common.color('text-body');
+  border-radius: 0;
+  height: common.$space-4;
+  line-height: common.$space-4;
+  font-size: common.pixel2rem(13);
+
+  &:disabled {
+    color: common.color('text-disabled');
+    pointer-events: none;
+  }
+
+  &::placeholder {
+    font-family: common.$family-primary;
+    color: common.color('text-placeholder')
+  }
+}
+
+.flatpickr-current-month {
+  @include common.align-center;
+  @include common.typography('body-small');
+
+  padding: 0;
+  color: common.color('text-title');
+  transform: none;
+
+  span.cur-month,
+  input.cur-year,
+  .flatpickr-monthDropdown-months {
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+  }
+
+  .flatpickr-monthDropdown-months:hover,
+  .numInputWrapper:hover {
+    background: transparent;
+  }
+
+  .numInputWrapper {
+    margin-left: common.$space-2;
+    width: common.pixel2rem(50)
+  }
+}
+
+.flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+  @include common.align-center;
+
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.flatpickr-innerContainer {
+  margin-top: common.pixel2rem(5);
+  padding-top: common.pixel2rem(5);
+
+  border-top: #{common.pixel2rem(1)} solid common.color('divider');
+}
+
+span.flatpickr-weekday {
+  @include common.typography('body-small');
+  color: common.color('text-title');
+  font-weight: 500
+}
+
+.flatpickr-day {
+  @include common.typography('body-small');
+
+  line-height: common.pixel2rem(39);
+  font-weight: 400;
+  color: common.color('text-body');
+
+  &:hover {
+    background: common.color('bg-gray');
+    border-color: common.color('bg-gray');
+  }
+}
+
+.flatpickr-day.today {
+  border-color: common.color('primary');
+
+  &:hover {
+    background: common.color('bg-gray');
+    color: common.color('text-body');
+    border-color: common.color('primary');
+  }
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.endRange,
+.flatpickr-day.startRange {
+  background-color: common.color('primary') !important;
+  border-color: common.color('primary') !important;
+  color: common.color('white') !important;
+}
+
+.flatpickr-day.inRange {
+  background: rgba(common.color('primary'), 0.7) !important;
+  border-color: rgba(common.color('primary'), 0.7) !important;
+  box-shadow: none;
+}
+
+.flatpickr-prev-month, .flatpickr-next-month {
+  &:hover {
+    svg {
+      fill: common.color('icon') !important;
+    }
+  }
+}
+
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover,
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay,
+.flatpickr-day.notAllowed,
+.flatpickr-day.notAllowed.prevMonthDay,
+.flatpickr-day.notAllowed.nextMonthDay {
+  color: common.color('text-disabled')
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  &:hover {
+    border-color: transparent;
+    background: transparent;
+  }
+}
+
+.flatpickr-calendar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: common.$datepicker-wrapper-layer;
+}
+
+
+.filter-datepicker {
+  .ng2-flatpickr-input {
+    display: none !important;
+  }
+
+  .flatpickr-calendar {
+    box-shadow: none;
+    border-radius: 0;
+  }
+}

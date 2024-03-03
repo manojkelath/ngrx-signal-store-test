@@ -1,0 +1,8 @@
+<kv-employer-registration
+  [registrationStatusIsNotValid]="registrationStatusIsNotValid$|async"
+  [message]="employerRegistrationMessage$ |async"
+  [typeRegistrationOptions]="typeRegistrationOptions$|async"
+  (cancel)="onClose()"
+  (submitted)="onSubmit($event)">
+</kv-employer-registration>
+

@@ -1,0 +1,40 @@
+<kv-table
+  class="table"
+  [class.mb-0]="isSmall"
+  [googleAnalyticsCategory]="googleAnalyticsCategory"
+  [isLoading]="isLoading$ | async"
+  [dataSource]="dataSource"
+  [tableColumns]="tableColumns"
+  [expandedTableContent]="expandedTableContent"
+  [currentSort]="currentSort$ | async"
+  [clickedRowId]="clickedRowId$ | async"
+  [isSmall]="isSmall"
+  [isClickable]="isClickable"
+  (sortChanged)="onSortChange($event)"
+  (toggledChanged)="onToggledChanged($event)"
+  (clickedRow)="onClickedRow($event)"
+  (actionDropdownItemClicked)="onActionDropdownItemClick($event)"
+  (profileNameClicked)="onProfileNameClick($event)"
+  (expandedRow)="onExpandableRow($event)"
+></kv-table>
+
+<kv-card-list
+  class="card-list"
+  [googleAnalyticsCategory]="googleAnalyticsCategory"
+  [isLoading]="isLoading$ | async"
+  [dataSource]="dataSource"
+  [tableColumns]="mobileTableColumns || tableColumns"
+  [expandedTableContent]="expandedTableContent"
+  [headerColumns]="mobileCardHeader"
+  [clickedRowId]="clickedRowId$ | async"
+  [expandHeaderTitle]="expandHeaderTitle"
+  [isSmall]="isSmall"
+  [isClickable]="isClickable"
+  (toggledChanged)="onToggledChanged($event)"
+  (clickedRow)="onClickedRow($event)"
+  (actionDropdownItemClicked)="onActionDropdownItemClick($event)"
+  (profileNameClicked)="onProfileNameClick($event)"
+  (expandedRow)="onExpandableRow($event)"
+></kv-card-list>
+
+<kv-spinner-cover [isLoading]="isLoading$ |async"></kv-spinner-cover>

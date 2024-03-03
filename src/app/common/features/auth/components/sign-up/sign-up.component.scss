@@ -1,0 +1,11 @@
+@use 'common';
+
+.auth-form {
+  &__upload-icon {
+    margin-bottom: -#{common.pixel2rem(3)};
+  }
+
+  &__caption-space {
+    margin-bottom: common.pixel2rem(14);
+  }
+}

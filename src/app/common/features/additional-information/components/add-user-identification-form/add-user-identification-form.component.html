@@ -1,0 +1,360 @@
+<div *transloco="let t; read: 'auth'" class="mb-2 kv-caption">
+  {{ t("additional-information.warning") }}
+</div>
+
+<form *ngIf="form" [formGroup]="form">
+  <div *transloco="let t; read: 'form'" class="kv-modal__content-inner">
+    <ng-container *transloco="let t; read: 'product.customize-page'">
+      <kv-checkbox
+        *ngIf="form.get('useCustomerAddress')"
+        [kvGaEvent]="{
+          event: 'use_custom_address_checkbox',
+          category: googleAnalyticsCategoryEnum.USER_DETAILS,
+          eventType: 'change'
+        }"
+        class="kv-modal__form-control"
+        formControlName="useCustomerAddress"
+      >
+        {{ t("use-customer-address-label") }}
+      </kv-checkbox>
+
+      <kv-form-control *ngIf="form.get('mobilePhone')" class="kv-modal__form-control" [label]="t('mobile-phone-label')" [error]="getControlErrors(form.get('mobilePhone'), inputErr.PHONE)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_mobile_phone_blur',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="mobilePhone"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-datepicker
+        *ngIf="form.get('birthDate')"
+        class="kv-modal__form-control"
+        formControlName="birthDate"
+        [maxDate]="maxDateOfBirth"
+        [kvGaEvent]="{
+            event: 'pick_date_of_birth',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'click'
+          }"
+        [label]="t('date-of-birth-label')"
+        [isLabelWithRequired]="true"
+        [error]="getControlErrors(form.get('birthDate'), inputErr.REQUIRED)"
+      ></kv-datepicker>
+
+      <kv-form-control *ngIf="form.get('placeOfBirth')" class="kv-modal__form-control" [label]="t('place-of-birth-label')" [error]="getControlErrors(form.get('placeOfBirth'), inputErr.REQUIRED)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_place_of_birth_blur',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="placeOfBirth"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control *ngIf="form.get('nationality')" class="kv-modal__form-control" [label]="t('nationality')" [error]="getControlErrors(form.get('nationality'), inputErr.REQUIRED)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_nationality_blur',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="nationality"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control *ngIf="form.get('maidenName')" class="kv-modal__form-control" [label]="t('maiden-name')" [error]="getControlErrors(form.get('maidenName'), inputErr.REQUIRED)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_maiden_name_blur',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="maidenName"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <ng-container *ngIf="!form.get('useCustomerAddress')?.value">
+        <ng-container *transloco="let tForm; read: 'form'">
+          <!-- Street Address -->
+          <kv-form-control *ngIf="form.get('streetAddress')" class="kv-modal__form-control" [label]="t('address-label')" [error]="getControlErrors(form.get('streetAddress'), inputErr)" [isLabelWithRequired]="true">
+            <input
+              kvTextInput
+              [kvGaEvent]="{
+                event: 'enter_street_address_blur',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'blur'
+              }"
+              class="kv-form__input"
+              formControlName="streetAddress"
+              kvTrimSpaces
+              kvSetMaxLength
+            />
+          </kv-form-control>
+
+          <!-- Form control - Province -->
+          <kv-custom-select
+            *ngIf="form.get(addressCreateEditFromControlNameEnum.PROVINCE)"
+            [kvGaEvent]="{
+              event: 'toggle_select_province',
+              category: googleAnalyticsCategoryEnum.USER_DETAILS,
+              eventType: 'click'
+            }"
+            class="kv-modal__form-control"
+            [formControlName]="addressCreateEditFromControlNameEnum.PROVINCE"
+            [optionsList]="provincesList"
+            [label]="tForm('province-label')"
+            [filter]="true"
+            [error]="getControlErrors(form.get(addressCreateEditFromControlNameEnum.PROVINCE), inputErr)"
+            [isLabelWithRequired]="true"
+          >
+            <kv-custom-select-option
+              *ngFor="let provinceOption of provincesList"
+              [kvGaEvent]="{
+                event: 'select_province',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'click'
+              }"
+              [key]="provinceOption.key"
+              [value]="provinceOption.value"
+            ></kv-custom-select-option>
+          </kv-custom-select>
+
+          <!-- Form control - City -->
+          <kv-custom-select
+            *ngIf="form.get(addressCreateEditFromControlNameEnum.CITY)"
+            [kvGaEvent]="{
+              event: 'toggle_select_city',
+              category: googleAnalyticsCategoryEnum.USER_DETAILS,
+              eventType: 'click'
+            }"
+            class="kv-modal__form-control"
+            [formControlName]="addressCreateEditFromControlNameEnum.CITY"
+            [optionsList]="citiesList"
+            [label]="tForm('city-label')"
+            [filter]="true"
+            [isLabelWithRequired]="!!citiesList?.length"
+            [error]="getControlErrors(form.get(addressCreateEditFromControlNameEnum.CITY), inputErr)"
+          >
+            <kv-custom-select-option
+              *ngFor="let cityOption of citiesList"
+              [kvGaEvent]="{
+                event: 'select_city',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'click'
+              }"
+              [key]="cityOption.key"
+              [value]="cityOption.value"
+            ></kv-custom-select-option>
+          </kv-custom-select>
+
+          <!-- Form control - District -->
+          <kv-custom-select
+            *ngIf="form.get(addressCreateEditFromControlNameEnum.DISTRICT)"
+            [kvGaEvent]="{
+              event: 'toggle_select_district',
+              category: googleAnalyticsCategoryEnum.USER_DETAILS,
+              eventType: 'click'
+            }"
+            class="kv-modal__form-control"
+            [formControlName]="addressCreateEditFromControlNameEnum.DISTRICT"
+            [optionsList]="districtsList"
+            [label]="tForm('district-label')"
+            [isLabelWithRequired]="!!districtsList?.length"
+            [filter]="true"
+            [error]="getControlErrors(form.get(addressCreateEditFromControlNameEnum.DISTRICT), inputErr)"
+          >
+            <kv-custom-select-option
+              *ngFor="let district of districtsList"
+              [kvGaEvent]="{
+                event: 'select_district',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'click'
+              }"
+              [key]="district.key"
+              [value]="district.value"
+            ></kv-custom-select-option>
+          </kv-custom-select>
+
+          <!-- Form control - Subdistrict -->
+          <kv-custom-select
+            *ngIf="form.get(addressCreateEditFromControlNameEnum.SUBDISTRICT)"
+            [kvGaEvent]="{
+              event: 'toggle_select_subdistrict',
+              category: googleAnalyticsCategoryEnum.USER_DETAILS,
+              eventType: 'click'
+            }"
+            class="kv-modal__form-control"
+            [formControlName]="addressCreateEditFromControlNameEnum.SUBDISTRICT"
+            [optionsList]="subdistrictsList"
+            [label]="tForm('subdistrict-label')"
+            [isLabelWithRequired]="!!subdistrictsList?.length"
+            [filter]="true"
+            [error]="getControlErrors(form.get(addressCreateEditFromControlNameEnum.SUBDISTRICT), inputErr)"
+          >
+            <kv-custom-select-option
+              *ngFor="let subdistricts of subdistrictsList"
+              [kvGaEvent]="{
+                event: 'select_subdistrict',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'click'
+              }"
+              [key]="subdistricts.key"
+              [value]="subdistricts.value"
+            ></kv-custom-select-option>
+          </kv-custom-select>
+
+          <!-- Form control - Postal Code Select -->
+          <kv-custom-select
+            *ngIf="form.get(addressCreateEditFromControlNameEnum.POSTAL_CODE) && !isPostalCodeInput"
+            [kvGaEvent]="{
+              event: 'toggle_select_postal_code',
+              category: googleAnalyticsCategoryEnum.USER_DETAILS,
+              eventType: 'click'
+            }"
+            class="kv-modal__form-control"
+            [formControlName]="addressCreateEditFromControlNameEnum.POSTAL_CODE"
+            [optionsList]="postalCodesList"
+            [label]="tForm('postal-code-label')"
+            [isLabelWithRequired]="!!postalCodesList?.length"
+            [filter]="true"
+            [error]="getControlErrors(form.get(addressCreateEditFromControlNameEnum.POSTAL_CODE), inputErr)"
+          >
+            <kv-custom-select-option
+              *ngFor="let postalCode of postalCodesList"
+              [kvGaEvent]="{
+                event: 'select_postal_code',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'click'
+              }"
+              [key]="postalCode.key"
+              [value]="postalCode.value"
+            ></kv-custom-select-option>
+          </kv-custom-select>
+
+          <!-- Form control - Postal Code Input -->
+          <kv-form-control
+            *ngIf="form.get(addressCreateEditFromControlNameEnum.POSTAL_CODE) && isPostalCodeInput"
+            class="kv-modal__form-control"
+            [label]="tForm('postal-code-label')"
+            [error]="getControlErrors(form.get(addressCreateEditFromControlNameEnum.POSTAL_CODE), inputErr)"
+          >
+            <input
+              kvTextInput
+              [kvGaEvent]="{
+                event: 'enter_postal_code_blur',
+                category: googleAnalyticsCategoryEnum.USER_DETAILS,
+                eventType: 'blur'
+              }"
+              class="kv-form__input"
+              [formControlName]="addressCreateEditFromControlNameEnum.POSTAL_CODE"
+              kvTrimSpaces
+              kvSetMaxLength
+            />
+          </kv-form-control>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <div class="auth-form__upload-row" *transloco="let t; read: 'product.customize-page'">
+      <kv-form-control
+        *ngIf="form.get('KTP')"
+        class="kv-modal__form-control"
+        [class.kv-modal__form-control--50]="form.get('IDCARD')"
+        [label]="t('ktp-number-label')"
+        [error]="getControlErrors(form.get('KTP'), inputErr.FORMAT)"
+        [isLabelWithRequired]="true"
+      >
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_ktp_number_blur',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="KTP"
+          [placeholder]="t('ktp-number-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <div *ngIf="form.get('IDCARD')" class="kv-modal__form-control" [class.kv-modal__form-control--50]="form.get('KTP')">
+        <div *transloco="let t; read: 'auth.sign-up'" class="is-relative is-flex-direction-column is-flex is-justify-content-space-between is-align-items-end">
+          <div class="auth-form__upload-caption auth-form__caption-space kv-caption">{{ t("recommended-formats") }} - JPG|PNG <br /></div>
+          <kv-file-upload-button [config]="documentConfig" (uploaded)="onUploadDocument($event)"
+            >{{ t("ktp-number-label") }}
+            <kv-icon class="ml-1 auth-form__upload-icon" svgPath="arrow-upward-filled.svg"></kv-icon>
+          </kv-file-upload-button>
+
+          <span class="auth-form__upload-error auth-form__upload-error--btn" *ngIf="getControlErrors(form.get('IDCARD'), inputErr.REQUIRED)">{{ getControlErrors(form.get("IDCARD"), inputErr.REQUIRED) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-form__upload-row" *transloco="let t; read: 'product.customize-page'">
+      <kv-form-control *ngIf="form.get('KK')" class="kv-modal__form-control" [class.kv-modal__form-control--50]="form.get('IDCARD_KK')" [label]="t('kk-number-label')" [error]="getControlErrors(form.get('KK'), inputErr.FORMAT)">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_kk_number_blur',
+            category: googleAnalyticsCategoryEnum.USER_DETAILS,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="KK"
+          [placeholder]="t('kk-number-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <div *ngIf="form.get('IDCARD_KK')" class="kv-modal__form-control kv-modal__form-control--50" [class.kv-modal__form-control--50]="form.get('KK')">
+        <div *transloco="let t; read: 'auth.sign-up'" class="is-relative is-flex-direction-column is-flex is-justify-content-space-between">
+          <div class="auth-form__upload-caption auth-form__caption-space kv-caption">{{ t("recommended-formats") }} - JPG|PNG <br /></div>
+          <kv-file-upload-button [config]="documentConfig" (uploaded)="onUploadKKDocument($event)"
+            >{{ t("kk-number-label") }}
+            <kv-icon class="ml-1 auth-form__upload-icon" svgPath="arrow-upward-filled.svg"></kv-icon>
+          </kv-file-upload-button>
+
+          <span class="auth-form__upload-error auth-form__upload-error--btn" *ngIf="getControlErrors(form.get('IDCARD_KK'), inputErr.REQUIRED)">{{ getControlErrors(form.get("IDCARD_KK"), inputErr.REQUIRED) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *transloco="let t; read: 'auth.sign-up'">
+      <div *ngIf="form.get('SELFIE')" class="auth-form__upload auth-form__upload-row">
+        <div class="auth-form__upload-caption auth-form__upload-caption-space kv-caption mr-2">
+          {{ t("upload-your-selfie") }} <br />
+          {{ t("recommended-formats") }} - JPG|PNG <br />
+        </div>
+        <kv-file-upload-button [config]="documentConfig" (uploaded)="onUploadSelfie($event)"
+          >{{ t("upload-a-selfie") }}
+          <kv-icon class="ml-1 auth-form__upload-icon" svgPath="arrow-upward-filled.svg"></kv-icon>
+        </kv-file-upload-button>
+
+        <span class="auth-form__upload-error" *ngIf="getControlErrors(form.get('SELFIE'), inputErr.REQUIRED)">{{ getControlErrors(form.get("SELFIE"), inputErr.REQUIRED) }}</span>
+      </div>
+    </ng-container>
+  </div>
+</form>

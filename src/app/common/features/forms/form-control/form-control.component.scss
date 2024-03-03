@@ -1,0 +1,183 @@
+@use "common";
+
+:host {
+  display: block;
+
+  // &.hidden-text-form-control {
+  //   .form-control {
+  //     &__label {
+  //       &:not(.form-control__label--active) {
+  //         max-width: calc(100% - #{common.pixel2rem(40)});
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+.form-control {
+  &__wrapper {
+    display: block;
+
+    &--inline {
+      display: block;
+
+      @include common.media-breakpoint-up(lg) {
+        display: flex;
+      }
+    }
+
+    &--readonly {
+      pointer-events: none;
+    }
+  }
+
+  &__label-container {
+    position: relative;
+    display: block;
+    padding: common.$space-2 common.$space-4;
+    border: common.pixel2rem(1) solid common.color('border');
+    border-radius: common.$border-radius-4;
+    width: 100%;
+
+    // &--full-height {
+    //   height: 100%;
+    // }
+
+    &--auto-height {
+      height: auto;
+      min-height: common.pixel2rem(36); // 2 lines of selected items
+      cursor: pointer;
+    }
+
+    // &--small {
+    //   @include common.typography('body-small');
+
+    //   padding: common.$space common.$space-3;
+    //   color: common.color('whale-blue');
+    //   border-radius: common.$border-radius;
+    //   border: #{common.pixel2rem(1)} solid rgba(common.color('echo-blue'), 0.5);
+    //   min-width: common.pixel2rem(150);
+    //   margin: 0;
+    // }
+
+    &--error {
+      border-color: common.color('red');
+    }
+
+    &--disabled {
+      border-color: common.color('text-disabled');
+    }
+
+    // &--pointer {
+    //   &:not(.form-control__label-container--disabled) {
+    //     cursor: pointer;
+    //   }
+    // }
+
+    &--inline {
+      width: 100%;
+
+      @include common.media-breakpoint-up(lg) {
+        width: 60%;
+      }
+    }
+  }
+
+  &__label {
+    @include common.text-overflow-ellipses(100%, block);
+    @include common.typography('body-small');
+
+    color: common.color('text-title');
+    margin-bottom: common.$space-2;
+
+    // position: absolute;
+    // top: common.$space-4;
+    // left: common.$space-2;
+    // transition: common.$animation-duration-sm;
+    // transition-property: top, transform, color;
+    // background-color: common.color('white');
+    // transform-origin: 0;
+    // padding: 0 common.$space;
+
+    // &--active {
+    //   top: -#{common.pixel2rem(12)};
+    //   transform: scale(0.75);
+    // }
+
+    &-asterisk {
+      padding-left: common.pixel2rem(4);
+      color: common.color('red');
+    }
+
+
+    // &--error {
+    //   color: common.color('red');
+    // }
+
+    &--inline {
+      width: 100%;
+      word-break: break-word;
+
+      @include common.media-breakpoint-up(lg) {
+        display: flex;
+        margin: 0;
+        align-items: center;
+        width: 40%;
+        white-space: normal;
+        padding-right: common.$space-4;
+      }
+    }
+  }
+
+  &__error {
+    @include common.typography('caption');
+
+    color: common.color('red');
+    margin: common.$space 0 0 0;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &--wrap {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin: -#{common.pixel2rem(5)} 0;
+    }
+  }
+
+  &__append-text {
+    margin-left: common.$space-2;
+    flex-shrink: 0;
+  }
+
+  &__toggle-visibility {
+    position: relative;
+    width: common.pixel2rem(24);
+    height: common.pixel2rem(24);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+
+    &.is-shown {
+
+      &::before {
+        position: absolute;
+        top: common.pixel2rem(2);
+        left: common.pixel2rem(2);
+        width: calc(100% - #{common.pixel2rem(4)});
+        height: calc(100% - #{common.pixel2rem(4)});
+        content: '';
+        background: linear-gradient(to top left,
+          rgba(common.color('border'), 0) 0%,
+          rgba(common.color('border'), 0) calc(50% - 0.8px),
+          rgba(common.color('border'), 1) 50%,
+          rgba(common.color('border'), 0) calc(50% + 0.8px),
+          rgba(common.color('border'), 0) 100%),
+      }
+    }
+  }
+}

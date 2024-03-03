@@ -1,0 +1,136 @@
+<ng-container *transloco="let t; read: 'lead-register'">
+  <div class="lead-register__container">
+    <div class="kv-modal__header lead-register__header">
+      <h1 class="kv-modal__title kv-heading-4">{{ t('need-more-details') }}</h1>
+      <button type="button" class="kv-modal__close-btn lead-register__close-btn" (click)="closeForm()">
+        <kv-icon svgPath="close.svg"></kv-icon>
+      </button>
+    </div>
+    <div class="lead-register__content">
+      <div *ngIf="isSuccessMessage" class="lead-message__success-message">
+        {{ t('register-success-message') }}
+      </div>
+      <form *ngIf="!isSuccessMessage" [formGroup]="registerForm">
+        <ng-container *transloco="let tForm; read: 'form'">
+          <kv-form-control
+            class="lead-register__from-control"
+            [label]="tForm('name-label')"
+            [error]="getControlErrors(registerForm.get('name'), inputErr.REQUIRED)"
+            [isLabelWithRequired]="true"
+          >
+            <input
+              kvTextInput
+              [kvGaEvent]="{
+                event: 'select_type-of-registration_employer-registration',
+                category: googleAnalyticsCategoryEnum.LEADS,
+                eventType: 'blur'
+              }"
+              class="kv-form__input"
+              formControlName="name"
+              [placeholder]="tForm('name-placeholder')"
+              kvTrimSpaces
+              kvSetMaxLength
+            />
+          </kv-form-control>
+
+          <kv-form-control
+            class="lead-register__from-control"
+            [label]="tForm('email-label')"
+            [error]="getControlErrors(registerForm.get('email'), inputErr.EMAIL)"
+            [isLabelWithRequired]="true"
+          >
+            <input
+              kvTextInput
+              [kvGaEvent]="{
+                event: 'enter_email_lead_register_blur',
+                category: googleAnalyticsCategoryEnum.LEADS,
+                eventType: 'blur'
+              }"
+              class="kv-form__input"
+              formControlName="email"
+              [placeholder]="tForm('email-placeholder')"
+              kvTrimSpaces
+              kvSetMaxLength
+            />
+          </kv-form-control>
+
+          <kv-form-control
+            class="lead-register__from-control"
+            [label]="tForm('telephone-number-label')"
+            [error]="getControlErrors(registerForm.get('phone'), inputErr.PHONE)"
+            [isLabelWithRequired]="true"
+          >
+            <input
+              kvTextInput
+              [kvGaEvent]="{
+                event: 'enter_phone_number_lead_register_blur',
+                category: googleAnalyticsCategoryEnum.LEADS,
+                eventType: 'blur'
+              }"
+              class="kv-form__input"
+              formControlName="phone"
+              [placeholder]="tForm('phone-number-placeholder')"
+              kvTrimSpaces
+              kvSetMaxLength
+            />
+          </kv-form-control>
+
+          <kv-select
+            [kvGaEvent]="{
+              event: 'toggle_select_province_lead_register',
+              category: googleAnalyticsCategoryEnum.LEADS,
+              eventType: 'click'
+            }"
+            class="lead-register__from-control"
+            [optionsList]="provinceOptions"
+            [isLabelWithRequired]="true"
+            formControlName="province"
+            [error]="getControlErrors(registerForm.get('province'), inputErr.REQUIRED)"
+            [label]="tForm('province-label')"
+          >
+            <kv-select-option
+              *ngFor="let provinceOption of provinceOptions"
+              [kvGaEvent]="{
+                event: 'select_province_lead_register',
+                category: googleAnalyticsCategoryEnum.LEADS,
+                eventType: 'click'
+              }"
+              [key]="provinceOption.key"
+              [value]="provinceOption.value"
+            ></kv-select-option>
+          </kv-select>
+
+          <kv-custom-select
+            *ngIf="registerForm.get('province').value"
+            [kvGaEvent]="{
+              event: 'toggle_select_city_lead_register',
+              category: googleAnalyticsCategoryEnum.LEADS,
+              eventType: 'click'
+            }"
+            class="lead-register__from-control"
+            [isLabelWithRequired]="true"
+            [filter]="true"
+            formControlName="city"
+            [error]="getControlErrors(registerForm.get('city'), inputErr.REQUIRED)"
+            [label]="tForm('city-label')"
+          >
+            <kv-custom-select-option
+              *ngFor="let cityOption of cityOptions"
+              [kvGaEvent]="{
+                event: 'select_city_lead_register',
+                category: googleAnalyticsCategoryEnum.LEADS,
+                eventType: 'click'
+              }"
+              [key]="cityOption.key"
+              [value]="cityOption.value"
+            ></kv-custom-select-option>
+          </kv-custom-select>
+        </ng-container>
+
+        <button type="submit" class="mt-5 kv-btn kv-btn--primary kv-btn--full-width" (click)="onSubmit()">
+          {{ t('submit') }}
+        </button>
+      </form>
+    </div>
+  </div>
+</ng-container>

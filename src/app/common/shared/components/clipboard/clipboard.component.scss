@@ -1,0 +1,16 @@
+@use 'common';
+
+:host {
+  display: flex;
+}
+
+.clipboard-btn {
+  font-size: common.pixel2rem(14);
+
+  &:not(.has-tooltip-active) {
+    &:before {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+  }
+}

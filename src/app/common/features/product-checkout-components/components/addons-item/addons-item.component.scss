@@ -1,0 +1,21 @@
+@use 'common';
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.addons-item {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: common.pixel2rem(106);
+  }
+
+  &__button {
+    display: flex;
+    margin-left: common.pixel2rem(14);
+  }
+}

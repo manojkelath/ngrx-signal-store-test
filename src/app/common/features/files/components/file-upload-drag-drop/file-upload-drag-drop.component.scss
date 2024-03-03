@@ -1,0 +1,111 @@
+@use 'common';
+
+:host {
+  &.upload-container--outlined {
+    .file-upload {
+      box-shadow: none;
+    }
+
+    .file-upload__drop-container {
+      margin: 0;
+      height: common.pixel2rem(200);
+    }
+  }
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  box-shadow: common.$shadow-1;
+  border-radius: common.$border-radius-1;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    font-family: common.$family-secondary;
+    font-size: common.pixel2rem(14);
+    padding: common.$space-3 common.$space-4;
+    border-bottom: common.pixel2rem(1) solid common.color('divider');
+
+    &--sub {
+      padding: 0 0 common.$space-3;
+    }
+  }
+
+  &__drop-container {
+    position: relative;
+    margin: common.$space-4;
+    height: common.pixel2rem(265);
+    border: common.pixel2rem(1) dashed common.color('divider');
+    background: common.color('bg-gray');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    font-size: common.pixel2rem(14);
+    border-radius: common.$border-radius-1;
+
+    &--active {
+      border: common.pixel2rem(2) dashed common.color('text-placeholder');
+    }
+
+    &--error {
+      border: common.pixel2rem(1) solid common.color('red');
+    }
+
+    &--hidden {
+      visibility: hidden;
+      height: 0;
+      margin: 0;
+    }
+  }
+
+  &__action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__action-icon {
+    padding-right: common.$space;
+  }
+
+  &__action-link {
+    margin-left: common.$space-4;
+  }
+
+  &__browse {
+    position: relative;
+    background: transparent;
+    margin: common.$space-4 auto;
+    z-index: 100;
+  }
+
+  &__input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  &__file-container {
+    margin: common.$space-4;
+    padding: common.$space-4;
+    box-shadow: common.$shadow-1;
+    border-radius: common.$border-radius-1;
+  }
+
+  &__remove-file, &__file-item-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: common.$space-2 0;
+  }
+}

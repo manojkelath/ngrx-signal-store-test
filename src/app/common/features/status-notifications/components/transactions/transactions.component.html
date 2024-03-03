@@ -1,0 +1,23 @@
+<div *transloco="let t; read: 'status-notifications'" class="transactions">
+  <div *ngFor="let notificationsBlock of notifications" class="transactions__block">
+    <ng-container
+      *ngFor="let item of notificationsBlock"
+    >
+      <button
+        *ngIf="!item?.isHidden"
+        type="button"
+        class="button-no-styles transactions__button"
+        [class.transactions__button--active]="item.notificationsCount"
+        [class.transactions__button--stretched]="item.isStretchedOnMobile"
+        (click)="onNotificationClick(item)"
+      >
+        <!-- TODO: remove custom attributes when kv-icon is refactored -->
+        <div class="transactions__button-icon">
+          <kv-icon [svgPath]="item.iconPath" [customSvgAttributes]="item.iconSize"></kv-icon>
+          <div *ngIf="item.notificationsCount" class="kv-counter transactions__counter">{{ item.notificationsCount }}</div>
+        </div>
+        {{ t(item.title) }}
+      </button>
+    </ng-container>
+  </div>
+</div>

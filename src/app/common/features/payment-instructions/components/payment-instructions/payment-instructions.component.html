@@ -1,0 +1,31 @@
+<div *transloco="let t; read: 'product.payment-page.payment-authorization'" class="instructions-block__container">
+  <button type="button" class="button-no-styles instruction__expand-button instruction__expand-button--title" (click)="onExpand()">
+    <span class="kv-section-title kv-text-secondary-color">{{t('payment-instruction')}}</span>
+    <kv-icon
+      class="instruction__expand-icon"
+      [class.instruction__expand-icon--expanded]="expandedInstruction"
+      [svgPath]="'arrow-up.svg'"
+    ></kv-icon>
+  </button>
+
+  <ng-container *ngIf="expandedInstruction">
+    <div class="instruction__wrapper" *ngFor="let instructionData of instructions" >
+      <button type="button" class="button-no-styles instruction__expand-button" (click)="onExpandInstruction(instructionData?.id)">
+        <p class="instruction__title">{{ instructionData?.title }}</p>
+        <kv-icon
+          class="instruction__expand-icon"
+          [class.instruction__expand-icon--expanded]="expandedInstructionId === instructionData?.id"
+          [svgPath]="'arrow-up.svg'"
+        ></kv-icon>
+      </button>
+      <ng-container *ngIf="expandedInstructionId === instructionData?.id">
+        <p class="instructions__description">{{ instructionData?.description }}</p>
+        <ol *ngIf="instructionData?.instructions?.length" class="instructions__list">
+          <li *ngFor="let instruction of instructionData?.instructions">
+            {{ instruction }}
+          </li>
+        </ol>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

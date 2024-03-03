@@ -1,0 +1,20 @@
+<label
+  class="button-no-styles kv-toggle__container"
+  [class.kv-toggle__container--active]="value"
+  [class.kv-toggle__container--disabled]="isDisabled"
+  [class.kv-toggle__container--readonly]="isReadonly"
+>
+  <span
+    class="kv-toggle__toggle"
+    [class.kv-toggle__toggle--active]="value"
+    [class.kv-toggle__toggle--disabled]="isDisabled"
+    [class.kv-toggle__toggle--readonly]="isReadonly"
+  ></span>
+  <input
+    type="checkbox"
+    name="checkbox"
+    class="kv-toggle__input"
+    [checked]="value"
+    (click)="onChanged($event)"
+  />
+</label>

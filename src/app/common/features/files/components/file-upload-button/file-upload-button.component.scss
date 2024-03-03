@@ -1,0 +1,26 @@
+@use 'common';
+
+.file {
+  &__input {
+    display: none;
+  }
+
+  &__button {
+    font-family: common.$family-secondary;
+    width: 100%;
+
+    @include common.media-breakpoint-up(sm) {
+      width: common.pixel2rem(210);
+    }
+
+    &--fullWidth {
+      width: 100%;
+    }
+  }
+
+  &__button-content {
+    @include common.text-overflow-ellipses;
+
+    line-height: common.pixel2rem(24);
+  }
+}

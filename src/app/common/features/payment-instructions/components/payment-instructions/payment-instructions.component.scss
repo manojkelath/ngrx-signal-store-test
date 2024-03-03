@@ -1,0 +1,68 @@
+@use "common";
+
+:host {
+  display: block;
+  padding: common.pixel2rem(16);
+}
+
+.instructions-block {
+  &__container {
+    &:not(:last-of-type) {
+      margin-bottom: common.pixel2rem(16);
+    }
+  }
+}
+
+.instruction {
+  &__expand-button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    &--title {
+      margin-bottom: common.$space-3;
+    }
+  }
+
+  &__wrapper {
+    background-color: common.color('bg-gray');
+    padding: common.$space-3;
+  }
+
+  &__title {
+    font-family: common.$family-secondary;
+    font-weight: 900;
+    font-size: common.pixel2rem(14);
+    text-align: left;
+    color: common.color('text-title');
+  }
+
+  &__expand-icon {
+    display: inline-block;
+    margin-left: common.$space-3;
+    fill: common.color('icon');
+    transform: rotate(180deg);
+
+    transition: all common.$animation-duration-md;
+
+    &--expanded {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.instructions {
+  &__description {
+    padding: common.pixel2rem(8) 0;
+    font-size: common.pixel2rem(13);
+    color: common.color('text-title');
+  }
+
+  &__list {
+    padding: common.pixel2rem(8);
+    font-size: common.pixel2rem(13);
+    list-style-position: inside;
+    background-color: common.color('white');
+  }
+}

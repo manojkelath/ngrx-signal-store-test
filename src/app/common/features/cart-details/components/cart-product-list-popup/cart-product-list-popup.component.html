@@ -1,0 +1,45 @@
+<ng-container *ngIf="cart?.products?.length; else emptyCart">
+  <div class="product__list" *transloco="let tPrice; read: 'price'">
+    <div class="product" *ngFor="let product of cart.products">
+      <div class="product__img">
+        <img *ngIf="!product.shippingCharge" [src]="product.smallImage" [alt]="product.description"/>
+        <kv-icon *ngIf="product.shippingCharge" size="40" verticalSize="40" svgPath="paxel-label.svg"></kv-icon>
+      </div>
+
+      <div class="product__container">
+        <div class="product__title">{{ product.description }}</div>
+        <div class="product__addons">
+          <div  class="product__addons--header--item">
+            <span class="product__label">{{ tPrice('price') }}</span>
+            <span class="product__prices">
+              <span class="product__addons--info">
+                <span class="kv-caption kv-text-secondary-color">
+                  {{ tPrice(product.currency) }}/{{ tPrice(product.recurrence) }}
+                </span>
+                {{ product.bundleTotal || product.itemTotal | price: product.currency }}
+              </span>
+              <span *ngIf="product.bundleTotalOT" class="product__addons--info">
+                <span class="kv-caption kv-text-secondary-color">
+                {{ tPrice(product.currency) }}/{{ tPrice('ONETIME') }}
+                </span>
+                {{ product.bundleTotalOT | price: product.currency }}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product__all-total" *transloco="let tPrice; read: 'price'">
+    <div class="product__label">{{ tPrice('total') }}</div>
+    <div>
+      <span class="kv-caption kv-text-secondary-color">{{ tPrice(cart.cartPrice.currency) }} </span>
+      <span>{{(cart.cartPrice.total)| price: cart.cartPrice.currency }}</span>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #emptyCart>
+  <div *transloco="let t; read: 'cart'" class="kv-caption p-4">{{ t('empty') }}</div>
+</ng-template>

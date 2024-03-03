@@ -1,0 +1,100 @@
+@use 'common';
+
+.kv-select {
+  &__wrapper {
+    position: relative;
+  }
+
+  &__input {
+    cursor: pointer;
+    padding-right: common.pixel2rem(32);
+    min-width: common.pixel2rem(150);
+    max-width: 100%;
+    align-self: flex-start;
+
+    &--multiselect-filter {
+      min-width: common.pixel2rem(50);
+      max-width: common.pixel2rem(100);
+      margin: common.$space 0;
+      flex-grow: 1;
+    }
+
+    &--hidden {
+      height: 0;
+      margin: 0;
+    }
+
+    &--small {
+      padding-right: common.pixel2rem(10);
+      min-width: common.pixel2rem(45);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &::placeholder {
+      cursor: default;
+    }
+  }
+
+  &__options-container {
+    width: 100%;
+    border-radius: common.pixel2rem(5);
+    display: block;
+    overflow: auto;
+    background-color: white;
+    box-shadow: 0 0 7px rgba(20, 32, 99, 0.33);
+  }
+
+  &__icon {
+    position: absolute;
+    right: common.pixel2rem(0);
+    top: common.pixel2rem(2);
+    fill: common.color('black');
+    cursor: pointer;
+
+    &--small {
+      right: -#{common.pixel2rem(10)};
+    }
+  }
+
+  &__icon-reset {
+    right: common.pixel2rem(16);
+    margin: 0 common.$space-2;
+    z-index: common.$datepicker-wrapper-layer;
+    fill: common.color('text-placeholder');
+  }
+
+  &__icon-unselect {
+    cursor: pointer;
+    fill: common.color('text-secondary');
+
+    &:hover {
+      fill: common.color('black');
+    }
+  }
+
+  &__chips-item {
+    flex-shrink: 0;
+    background-color: common.color('bg-gray');
+    font-size: common.pixel2rem(11);
+    padding: common.pixel2rem(3) common.pixel2rem(6);
+    margin-right: common.pixel2rem(8);
+    margin-bottom: common.pixel2rem(4);
+    margin-top: common.pixel2rem(4);
+    border-radius: common.pixel2rem(4);
+    line-height: 1;
+  }
+
+  &__option-no-data {
+    font-family: common.$family-secondary;
+    font-size: common.pixel2rem(14);
+    text-align: center;
+    padding: common.$space-2;
+  }
+
+  &__options-container {
+    z-index: common.$datepicker-wrapper-layer;
+  }
+}

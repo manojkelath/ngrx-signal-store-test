@@ -1,0 +1,14 @@
+<ng-container *transloco="let t">
+  <div *ngIf="title" class="configuration__title">{{ title }}</div>
+  <ng-container *ngFor="let configuration of productConfiguration">
+    <kv-configuration-item
+      *ngIf="useCustomerAddress === undefined ? true : userCustomerNames.includes(configuration.name) ? !useCustomerAddress : true"
+      [isReadonly]="isReadonly"
+      [titleText]="t(configuration.text) || configuration.text"
+      [valueText]="configuration.value"
+      [valueType]="configuration.type"
+      [attributeType]="configuration.attributeType"
+      [configurationOptions]="configuration?.options$ | async"
+    ></kv-configuration-item>
+  </ng-container>
+</ng-container>

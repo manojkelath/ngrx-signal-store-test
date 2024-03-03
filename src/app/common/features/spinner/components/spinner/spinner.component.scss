@@ -1,0 +1,35 @@
+@use "common";
+
+$spinner-color: common.color('primary');
+$spinner-background-color: rgba(common.color('primary'), 0.3);
+
+.spinner__loader {
+	animation: 1s linear infinite rotation;
+	border-radius: 100%;
+	border: .1875rem solid $spinner-background-color;
+	height: 2rem;
+  width: 2rem;
+
+  &:before {
+    border: .1875rem solid transparent;
+    height: 2rem;
+    left: -.1875rem;
+    top: -.1875rem;
+    width: 2rem;
+    border-right-color: $spinner-color;
+    border-top-color: $spinner-color;
+    border-radius: 100%;
+    content: "";
+    display: block;
+    position: absolute;
+  }
+}
+
+@keyframes rotation {
+	from {
+		transform: rotate(0)
+	}
+	to {
+		transform: rotate(359deg)
+	}
+}

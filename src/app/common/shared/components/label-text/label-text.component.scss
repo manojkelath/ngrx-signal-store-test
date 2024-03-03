@@ -1,0 +1,9 @@
+@use 'common';
+
+:host {
+  display: inline-block;
+  border-radius: common.$border-radius-5;
+  color: common.color('white');
+  padding: common.pixel2rem(2) common.pixel2rem(6);
+  height: fit-content;
+}

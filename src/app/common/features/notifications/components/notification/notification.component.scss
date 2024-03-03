@@ -1,0 +1,53 @@
+@use 'common';
+
+.notification {
+  &__container {
+    @include common.typography('body-small');
+
+    position: relative;
+    border-radius: common.$border-radius-1;
+    margin-bottom: common.$space-8;
+    padding: common.$space-2 common.$space-11;
+    overflow-wrap: break-word;
+
+    &--error {
+      background-color: lighten(common.color('red'), 45%);
+      border: 1px solid common.color('red');
+    }
+
+    &--warning {
+      background-color: lighten(common.color('brand-3'), 45%);
+      border: 1px solid common.color('brand-3');
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: common.pixel2rem(10);
+    left: common.$space-4;
+
+    &--error {
+      color: common.color('red');
+      fill: common.color('red');
+    }
+
+    &--warning {
+      color: common.color('brand-3');
+      fill: common.color('brand-3');
+    }
+  }
+
+  &__btn-close {
+    position: absolute;
+    top: common.pixel2rem(18);
+    right: common.$space-4;
+    transform: translateY(-50%);
+    padding: 0;
+    display: inline-flex;
+    fill: common.color('dark');
+  }
+
+  &__text {
+    word-break: break-word;
+  }
+}

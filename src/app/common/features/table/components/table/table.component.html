@@ -1,0 +1,80 @@
+<ng-container *transloco="let t">
+  <table
+    class="table__container"
+    [class.table__container--expandable]="expandedTableContent"
+    [class.table__container--is-small]="isSmall"
+    [dataSource]="dataSource"
+    *transloco="let t"
+    cdk-table
+    multiTemplateDataRows>
+    <ng-container *ngFor="let tableColumn of tableColumns">
+      <ng-container [cdkColumnDef]="tableColumn?.key">
+        <th
+          cdk-header-cell
+          *cdkHeaderCellDef
+          [align]="[filedType.DATE, filedType.PRICE, filedType.PRICE_DUE, filedType.ACTION].includes(tableColumn.type) ? 'right' : 'left'"
+          [class.table__column-header--right]="[filedType.DATE, filedType.PRICE, filedType.PRICE_DUE, filedType.ACTION].includes(tableColumn.type)"
+          [class.table__column-header--active-sort]="tableColumn?.sortKey === currentSort?.column"
+          class="table__column-header"
+          [class.cursor]="tableColumn?.sortKey"
+          (click)="adjustSort(tableColumn?.sortKey)"
+        >
+          {{ t(tableColumn?.title) }}
+          <span *ngIf="tableColumn?.sortKey && tableColumn?.sortKey === currentSort?.column">
+            <ng-container *ngIf="currentSort?.direction">
+              {{ currentSort?.direction === sortDirectionEnum.ASC ? "↥" : "↧" }}
+            </ng-container>
+          </span>
+        </th>
+
+        <td
+          cdk-cell
+          *cdkCellDef="let element"
+          [align]="[filedType.DATE, filedType.PRICE, filedType.PRICE_DUE, filedType.ACTION].includes(tableColumn.type) ? 'right' : 'left'"
+          class="table__cell"
+          [class.cell--right]="[filedType.DATE, filedType.PRICE, filedType.PRICE_DUE, filedType.ACTION].includes(tableColumn.type)"
+          [class]="tableColumn.className"
+        >
+          <kv-field-template
+            [googleAnalyticsCategory]="googleAnalyticsCategory"
+            [element]="element"
+            [tableColumn]="tableColumn"
+            [isExpanded]="element == expandedElement"
+            [isExpandable]="element?.[expandedDataKey]?.length"
+            [isCopyDesktop]="isCopyDesktop"
+            (toggledChanged)="onToggledChanged($event)"
+            (actionDropdownItemClicked)="onActionDropdownItemClick($event)"
+            (profileNameClicked)="onProfileNameClick(element.id)"
+          ></kv-field-template>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container [cdkColumnDef]="expandedRowContent">
+      <td cdk-cell class="table__cell table__cell--expandable" [class.table__cell--expanded]="element.isExpandable && element == expandedElement"
+        *cdkCellDef="let element" [attr.colspan]="tableColumns?.length">
+        <div *ngIf="element.isExpandable" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <ng-container *ngTemplateOutlet="expandedTableContent"></ng-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <div class="table__row-wrapper">
+      <tr
+        cdk-row
+        *cdkRowDef="let row; columns: displayedColumns" class="table__row"
+        [class.table__row--is-small]="isSmall"
+        [class.table__row--highlight]="row?.id && clickedRowId === row.id && !expandedTableContent"
+        (click)="onClickRow(row)"
+      ></tr>
+
+      <ng-container *ngIf="expandedTableContent">
+        <tr cdk-row *cdkRowDef="let element; columns: [expandedRowContent]"></tr>
+      </ng-container>
+    </div>
+  </table>
+</ng-container>
+<ng-container *transloco="let tShared; read: 'shared'">
+  <div *ngIf="!isLoading && !dataSource?.length" class="empty-message-container">{{tShared('no-data-yet')}}</div>
+</ng-container>

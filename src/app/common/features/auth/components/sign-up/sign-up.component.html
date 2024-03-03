@@ -1,0 +1,246 @@
+<div *transloco="let t; read: 'auth'" class="kv-modal__header">
+  <div class="kv-modal__title kv-heading-4">{{ t("sign-up.title") }}</div>
+
+  <button type="button" class="kv-modal__close-btn" (click)="onModalClose()">
+    <kv-icon svgPath="close.svg"></kv-icon>
+  </button>
+</div>
+
+<div class="kv-modal__content">
+  <kv-auth-error-handler-container></kv-auth-error-handler-container>
+
+  <form [formGroup]="signUpForm">
+    <div *transloco="let t; read: 'form'" class="kv-modal__content-inner">
+      <kv-form-control class="kv-modal__form-control kv-modal__form-control--50" [label]="t('first-name-label')" [error]="getControlErrors(signUpForm.get('firstName'), inputErr.REQUIRED)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_first_name_sign_up_blur',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="firstName"
+          [placeholder]="t('first-name-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control class="kv-modal__form-control kv-modal__form-control--50" [label]="t('last-name-label')" [error]="getControlErrors(signUpForm.get('lastName'), inputErr.REQUIRED)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_last_name_sign_up_blur',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="lastName"
+          [placeholder]="t('last-name-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control class="kv-modal__form-control kv-modal__form-control--50" [label]="t('email-label')" [error]="getControlErrors(signUpForm.get('email'), inputErr.EMAIL)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_email_sign_up_blur',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="email"
+          [placeholder]="t('email-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control class="kv-modal__form-control kv-modal__form-control--50" [label]="t('phone-number-label')" [error]="getControlErrors(signUpForm.get('phoneNr'), inputErr.PHONE)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_phone_number_sign_up_blur',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="phoneNr"
+          [placeholder]="t('phone-number-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control class="kv-modal__form-control" [label]="t('company-name-label')" [error]="getControlErrors(signUpForm.get('companyName'), inputErr.REQUIRED)" [isLabelWithRequired]="true">
+        <input
+          kvTextInput
+          [kvGaEvent]="{
+            event: 'enter_company_name_sign_up_blur',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'blur'
+          }"
+          class="kv-form__input"
+          formControlName="companyName"
+          [placeholder]="t('company-name-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <!-- KV-195 -->
+
+      <!-- <kv-form-control
+        class="kv-modal__form-control kv-modal__form-control--50"
+        [label]="t('company-email-label')"
+        [error]="getControlErrors(signUpForm.get('companyEmail'), inputErr.EMAIL)"
+        [isLabelWithRequired]="true"
+      >
+        <input
+          kvTextInput
+          gaEvent
+          gaAction="enter_company_email_sign_up_blur"
+          gaBind="blur"
+          class="kv-form__input"
+          formControlName="companyEmail"
+          [placeholder]="t('company-email-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control>
+
+      <kv-form-control
+        class="kv-modal__form-control kv-modal__form-control--50"
+        [label]="t('company-number-label')"
+        [error]="getControlErrors(signUpForm.get('companyPhoneNr'), inputErr.PHONE)"
+        [isLabelWithRequired]="true"
+      >
+        <input
+          kvTextInput
+          gaEvent
+          gaAction="enter_company_phone_number_sign_up_blur"
+          gaBind="blur"
+          class="kv-form__input"
+          formControlName="companyPhoneNr"
+          [placeholder]="t('company-number-placeholder')"
+          kvTrimSpaces
+          kvSetMaxLength
+        />
+      </kv-form-control> -->
+
+      <!-- END - KV-195 -->
+
+      <!-- <div class="auth-form__upload-row" *transloco="let t; read: 'product.customize-page'">
+        <kv-form-control
+          class="kv-modal__form-control kv-modal__form-control--50"
+          [label]="t('ktp-number-label')"
+          [error]="getControlErrors(signUpForm.get('KTP'), inputErr.FORMAT)"
+          [isLabelWithRequired]="true"
+        >
+          <input kvTextInput class="kv-form__input" formControlName="KTP" [placeholder]="t('ktp-number-placeholder')" kvTrimSpaces kvSetMaxLength />
+        </kv-form-control>
+
+        <div class="kv-modal__form-control kv-modal__form-control--50">
+          <div *transloco="let t; read: 'auth.sign-up'" class="is-relative is-flex-direction-column is-flex is-justify-content-space-between">
+            <div class="auth-form__upload-caption auth-form__caption-space kv-caption">
+              {{ t('recommended-formats') }} - JPG|PNG <br>
+            </div>
+            <kv-file-upload-button [format]="documentFormat" (uploaded)="onUploadDocument($event)">{{ t('upload-a-document') }}<kv-icon class="ml-1 auth-form__upload-icon" svgPath="arrow-upward-filled.svg"></kv-icon></kv-file-upload-button>
+
+            <span class="auth-form__upload-error auth-form__upload-error--btn" *ngIf="getControlErrors(signUpForm.get('IDCARD'), inputErr.REQUIRED)">{{ getControlErrors(signUpForm.get('IDCARD'), inputErr.REQUIRED) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-form__upload-row" *transloco="let t; read: 'product.customize-page'">
+        <kv-form-control
+          class="kv-modal__form-control kv-modal__form-control--50"
+          [label]="t('kk-number-label')"
+          [error]="getControlErrors(signUpForm.get('KK'), inputErr.FORMAT)"
+        >
+          <input kvTextInput class="kv-form__input" formControlName="KK" [placeholder]="t('kk-number-placeholder')"  kvTrimSpaces kvSetMaxLength />
+        </kv-form-control>
+
+        <div class="kv-modal__form-control kv-modal__form-control--50">
+          <div *transloco="let t; read: 'auth.sign-up'" class="is-relative is-flex-direction-column is-flex is-justify-content-space-between">
+            <div class="auth-form__upload-caption auth-form__caption-space kv-caption">
+              {{ t('recommended-formats') }} - JPG|PNG <br>
+            </div>
+            <kv-file-upload-button [format]="documentFormat" (uploaded)="onUploadKKDocument($event)">{{ t('upload-a-document') }}<kv-icon class="ml-1 auth-form__upload-icon" svgPath="arrow-upward-filled.svg"></kv-icon></kv-file-upload-button>
+
+            <span class="auth-form__upload-error auth-form__upload-error--btn" *ngIf="getControlErrors(signUpForm.get('IDCARD_KK'), inputErr.REQUIRED)">{{ getControlErrors(signUpForm.get('IDCARD_KK'), inputErr.REQUIRED) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *transloco="let t; read: 'auth.sign-up'">
+        <div class="auth-form__upload auth-form__upload-row">
+          <div class="auth-form__upload-caption auth-form__caption-space kv-caption mr-2">
+            {{ t('upload-your-selfie') }} <br>
+            {{ t('recommended-formats') }} - JPG|PNG <br>
+          </div>
+          <kv-file-upload-button [format]="documentFormat" (uploaded)="onUploadSelfie($event)">{{ t('upload-a-selfie') }} <kv-icon class="ml-1 auth-form__upload-icon" svgPath="arrow-upward-filled.svg"></kv-icon></kv-file-upload-button>
+
+          <span class="auth-form__upload-error" *ngIf="getControlErrors(signUpForm.get('SELFIE'), inputErr.REQUIRED)">{{ getControlErrors(signUpForm.get('SELFIE'), inputErr.REQUIRED) }}</span>
+        </div>
+      </ng-container> -->
+
+      <kv-checkbox
+        *transloco="let t"
+        [kvGaEvent]="{
+          event: 'accept_terms_sign_up_checkbox',
+          category: googleAnalyticsCategoryEnum.AUTH,
+          eventType: 'change'
+        }"
+        formControlName="termsAccepted"
+        [error]="getControlErrors(signUpForm.get('termsAccepted'), inputErr.TERMS_ERROR)"
+      >
+        {{ t("common.by-clicking") }} <strong>{{ t("auth.sign-up.submit") }}</strong
+        >, {{ t("common.agree-to-our") }}
+        <a
+          [kvGaEvent]="{
+            event: 'terms_of_service_sign_up_link_click',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'click'
+          }"
+          target="_blank"
+          href="https://indosatooredoo.com/portal/en/pssupporttnc"
+          class="kv-btn-text"
+          >{{ t("auth.sign-up.terms-of-service") }}</a
+        >
+        {{ t("common.and") }}
+        <a
+          [kvGaEvent]="{
+            event: 'privacy_policy_sign_up_link_click',
+            category: googleAnalyticsCategoryEnum.AUTH,
+            eventType: 'click'
+          }"
+          target="_blank"
+          href="https://indosatooredoo.com/portal/en/pssupportprivacypolicy"
+          class="kv-btn-text"
+          >{{ t("auth.sign-up.privacy-policy") }}</a
+        >
+      </kv-checkbox>
+    </div>
+  </form>
+</div>
+
+<div *transloco="let t" class="kv-modal__footer">
+  <div class="kv-caption">
+    {{ t("auth.sign-up.redirect-to-sign-in") }}
+    <button type="button" class="kv-btn-text" (click)="onLogin()">{{ t("auth.sign-in.title") }}</button>
+  </div>
+
+  <div class="is-flex">
+    <button type="button" class="kv-btn kv-btn--flat kv-btn--small mr-4" (click)="onCancel()">
+      {{ t("common.cancel") }}
+    </button>
+
+    <button type="submit" class="kv-btn kv-btn--primary kv-btn--small" (click)="onSignUp()">
+      {{ t("auth.sign-up.submit") }}
+    </button>
+  </div>
+</div>

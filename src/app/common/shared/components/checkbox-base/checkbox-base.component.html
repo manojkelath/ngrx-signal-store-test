@@ -1,0 +1,27 @@
+<label
+  class="kv-checkbox__container"
+  [ngClass]="{
+    'kv-checkbox__container--small': isSmall
+  }"
+>
+  <input type="checkbox" [checked]="isChecked" (change)="onChanged($event)" (blur)="onBlur($event)" [disabled]="disabled">
+  <span
+    class="kv-checkbox__checkmark"
+    [ngClass]="{
+      'kv-checkbox__checkmark--small': isSmall
+    }"
+  ></span>
+
+  <span
+    class="kv-checkbox__text"
+    [ngClass]="{
+      'kv-checkbox__text--small': isSmall
+    }"
+  >
+    <ng-content></ng-content>
+  </span>
+</label>
+
+<div class="kv-checkbox__error" *ngIf="error">
+  {{ error }}
+</div>

@@ -1,0 +1,18 @@
+export enum ProductCategoryEnum {
+  ADVISORY_HUB = 'Advisory Hub',
+  CLOUD_VOICE_LITE = 'Cloud Voice Lite',
+  MEET_TEAM_PRO = 'Meet Team Pro',
+  PROMOTIONAL_SMS_PACKAGE = 'Promotional SMS Package',
+  BUSINESS_PRODUCTIVITY_PACKAGE = 'Business Productivity Package',
+  PRIME = 'Prime',
+  PRIME_BUNDLED = 'Prime Bundled',
+  PRO_FREEDOM_APPS = 'Pro Freedom Apps',
+  EMPLOYEE_PURCHASE_PROGRAM = 'Employee Purchase Program',
+  EMPLOYER_REGISTRATION = 'Employer Registration',
+  I_MANAGE = 'iManage',
+  UNKNOWN = 'Unknown',
+  PRIME_BULK = 'Prime Bulk',
+  PRO_FREEDOM_APPS_BULK = 'Pro Freedom Apps Bulk',
+  BULK_PURCHASE_PROGRAM = 'Bulk Purchase Program',
+  YOOV_BUNDLES = 'Yoov Bundles',
+}

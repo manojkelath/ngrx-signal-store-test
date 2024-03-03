@@ -1,0 +1,17 @@
+<ng-container *transloco="let t; read: 'status-notifications'">
+  <div *ngFor="let promotion of promotions" class="promotion__wrapper">
+    <div class="promotion">
+      <div class="promotion__title">{{promotion.title}}</div>
+      <div class="promotion__description">{{promotion.description}}</div>
+      <a 
+        *ngIf="promotion.url" 
+        [href]="promotion.url"
+        class="kv-btn kv-btn--flat kv-btn--small is-justify-content-start promotion__link" 
+        target="_blank"
+      >
+        {{ t('learn-more')}} 
+        <kv-icon class="ml-1" svgPath="chevron-right.svg"></kv-icon>
+      </a>
+    </div>
+  </div>
+</ng-container>

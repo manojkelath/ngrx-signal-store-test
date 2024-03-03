@@ -1,0 +1,19 @@
+@use 'common';
+
+:host {
+  @include common.overlay-config
+}
+
+.auth-ui {
+  &__page-container {
+    border: common.pixel2rem(1) solid common.color('divider');
+    background-color: common.color('white');
+    border-radius: common.$border-radius-4;
+    box-shadow: common.$shadow-3;
+
+    width: 100%;
+    max-width: common.pixel2rem(490);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}

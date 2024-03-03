@@ -1,0 +1,11 @@
+<div class="kv-modal__content" *transloco="let t; read: 'auth.sign-up'">
+  <div class="sign-up-confirmation__container">
+    <img class="sign-up-confirmation__img" [src]="successUrl" alt="success">
+
+    <div class="kv-modal__title kv-modal__title--center kv-heading-4 mb-4">{{t('success-title')}}</div>
+
+    <div *ngIf="registrationModel === ahModel" class="mb-4">{{t('success-message')}}</div>
+
+    <button class="kv-btn kv-btn--primary kv-btn--small" (click)="onModalClose()">{{t('ok')}}</button>
+  </div>
+</div>

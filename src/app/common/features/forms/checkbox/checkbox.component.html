@@ -1,0 +1,9 @@
+<kv-checkbox-base
+  [error]="error"
+  [isChecked]="isChecked"
+  [disabled]="disabled"
+  (changed)="onChanged($event)"
+  (blurred)="onBlur()"
+>
+  <ng-content></ng-content>
+</kv-checkbox-base>
