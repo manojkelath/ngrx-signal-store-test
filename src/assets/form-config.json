@@ -1,0 +1,64 @@
+[
+    {
+        "type": "text",
+        "name": "username",
+        "label": "Username",
+        "placeholder": "Enter your username",
+        "validators": [
+            "required"
+        ]
+    },
+    {
+        "type": "email",
+        "name": "email",
+        "label": "Email",
+        "placeholder": "Enter your email",
+        "validators": [
+            "required",
+            "customValidator1"
+        ]
+    },
+    {
+        "type": "password",
+        "name": "password",
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "validators": [
+            "required"
+        ]
+    },
+    {
+        "type": "dropdown",
+        "name": "country",
+        "label": "Country",
+        "options": [
+            "USA",
+            "Canada",
+            "UK"
+        ],
+        "validators": [
+            "required"
+        ]
+    },
+    {
+        "type": "checkbox",
+        "name": "agree",
+        "label": "I agree to the terms and conditions",
+        "validators": [
+            "required"
+        ]
+    },
+    {
+        "type": "radio",
+        "name": "gender",
+        "label": "Gender",
+        "options": [
+            "Male",
+            "Female",
+            "Other"
+        ],
+        "validators": [
+            "required"
+        ]
+    }
+]

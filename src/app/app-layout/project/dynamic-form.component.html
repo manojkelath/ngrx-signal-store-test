@@ -1,0 +1,25 @@
+<!-- dynamic-form.component.html -->
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of formConfig">
+    <label [for]="field.name">{{ field.label }}</label>
+    <ng-container [ngSwitch]="field.type">
+      <input *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+      <select *ngSwitchCase="'dropdown'" [formControlName]="field.name">
+        <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+      </select>
+      <div *ngSwitchCase="'checkbox'">
+        <input [type]="field.type" [formControlName]="field.name">
+        {{ field.label }}
+      </div>
+      <div *ngSwitchCase="'radio'">
+        <label *ngFor="let option of field.options">
+          <input [type]="field.type" [formControlName]="field.name" [value]="option">
+          {{ option }}
+        </label>
+      </div>
+    </ng-container>
+   
+  </div>
+  <button type="submit" [disabled]="form.invalid">Submit</button>
+</form>

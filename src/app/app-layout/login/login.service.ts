@@ -10,9 +10,9 @@ export class LoginService {
 
 
     logIn = (userInfo: UserInfo, ms: number) => {
-        // return new Promise(
-        //     resolve => setTimeout(resolve, ms));
-        return this.genericHttpService.post(`service/idm/authentication/login`, { userLogin: userInfo }).toPromise();
+        return new Promise(
+            resolve => setTimeout(resolve, ms));
+        // return this.genericHttpService.post(`service/idm/authentication/login`, { userLogin: userInfo }).toPromise()
 
             
     }

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { ProjectComponent } from './app-layout/project/project.component';
+import { DynamicFormComponent } from './app-layout/project/dynamic-form.component';
 
 export const routes: Routes = [
-    { path: 'project', component: ProjectComponent }
+    { path: 'project', component: DynamicFormComponent }
 ];

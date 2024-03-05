@@ -3,6 +3,7 @@ import { UserInfo } from './login.component';
 import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
 import { LoginService } from './login.service';
 import { delay } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 type LoginState = {
@@ -18,14 +19,17 @@ const initialState: LoginState = {
     withState(initialState),
     withMethods(
         (store, logInService = inject(LoginService)) => ({
-          async logIntoServer(userInfo: UserInfo) {
-            patchState(store, {loading: true});
-            // const logedIn = await logInService.loginIntoServer(userInfo);
-            const logedIn = await logInService.logIn(userInfo, 5000);
-            console.log('ewesdf')
-
-              patchState(store, {loading: false});
-          }
-        })
+            
+              logIntoServer :  async (userInfo: UserInfo) => {
+                patchState(store, {loading: true});
+                // const logedIn = await logInService.loginIntoServer(userInfo);
+                const logedIn = await logInService.logIn(userInfo, 5000);
+                console.log('ewesdf')
+    
+                  patchState(store, {loading: false});
+              }
+            
+          
+        })       
         
  ))
