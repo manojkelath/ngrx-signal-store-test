@@ -18,6 +18,8 @@ let formInitState: DynamicFormState = {
 import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
 import { DynamicFormService } from "./dynamic-form.service";
 import { Injector, inject } from "@angular/core";
+import { pipe, debounceTime, distinctUntilChanged, tap, switchMap } from "rxjs";
+import { tapResponse } from '@ngrx/operators';
 
  export const DynamicStore = signalStore(
     withState(formInitState),
@@ -31,16 +33,26 @@ import { Injector, inject } from "@angular/core";
         validateForm(formObj: any){
             formService.validateForm(formObj).subscribe();
         },
-        // loadByFilter: rxMethod<DynamicFormState>(
-        //     pipe(
-        //       debounceTime(300),
-        //       tap(() => (patchState(store, { isLoading: true}))),
-        //       switchMap((filter) =>
-        //         runInInjectionContext(injector, () => geyByFilter(filter))
-        //       ),
-        //       tap(()=> (patchState(store, { isLoading: false}))
-        //     )
-        //   ),
+        loadByQuery: rxMethod<string>(
+            pipe(
+              debounceTime(300),
+              distinctUntilChanged(),
+              tap(() => patchState(store, { isLoading: true })),
+              switchMap((query) =>
+              formService.validateForm({}).pipe(
+                  tapResponse({
+                    next: () => patchState(store, { isLoading: false }),
+                    error: console.error,
+                    finalize: () => patchState(store, { isLoading: false }),
+                  }),
+                ),
+              ),
+            ),
+          ),
 
     })
  ));
+function rxMethod<T>(arg0: any): any {
+    throw new Error("Function not implemented.");
+}
+
