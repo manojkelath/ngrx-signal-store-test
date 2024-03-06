@@ -31,7 +31,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   generateForm() {
-    for (const field of this.formConfig["en"]) {
+    for (const field of this.formConfig) {
       const validators = [];
       if (field.validators) {
         for (const validator of field.validators) {
