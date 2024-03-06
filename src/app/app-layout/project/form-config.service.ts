@@ -13,7 +13,7 @@ export class FormConfigService {
   getFormConfig(language: string): Observable<any[]> {
     // Assuming form configuration files are named based on language, like form-config-en.json, form-config-es.json, etc.
     let lang = this.translateService.currentLang;
-    const configFileName = `assets/form-config-${lang}.json`;
+    const configFileName = `assets/form-configs/form-config-${lang}.json`;
     return this.http.get<any[]>(configFileName);
   }
 }
