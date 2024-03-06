@@ -1,16 +1,23 @@
 <!-- dynamic-form.component.html -->
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  @if(dyForm.isLoading()) {
+    <div>LOADING ....</div>
+  } @else {
+    <div>NOT LOADING....</div>
+  }
+  
   <div *ngFor="let field of formConfig">
     <label [for]="field.name">{{ field.label }}</label>
     <ng-container [ngSwitch]="field.type">
       <input *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+      <input *ngSwitchCase="'password'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
       <input *ngSwitchCase="'email'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
       <select *ngSwitchCase="'dropdown'" [formControlName]="field.name">
         <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
       </select>
       <div *ngSwitchCase="'checkbox'">
-        <input [type]="field.type" [formControlName]="field.name">
+        <input [type]="field.type" [formControlName]="field.name" [id]="field.name">
         {{ field.label }}
       </div>
       <div *ngSwitchCase="'radio'">
@@ -23,4 +30,5 @@
    
   </div>
   <button type="submit" [disabled]="form.invalid">Submit</button>
+  <!-- <button type="submit" >Submit</button> -->
 </form>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormConfigService } from './form-config.service';
 import { customValidator } from './custom-validator';
 import { CommonModule } from '@angular/common';
+import { DynamicStore } from './dynamic-form.store';
+import { DynamicFormService } from './dynamic-form.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -13,12 +15,14 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     CommonModule 
   ],
+  providers : [DynamicStore],
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
   form!: FormGroup;
   formConfig: any[] = [];
   selectedLanguage: string = 'en'; // Assuming English as the default language
+  dyForm = inject(DynamicStore);
 
   constructor(private fb: FormBuilder, private formConfigService: FormConfigService) { }
 
@@ -42,13 +46,25 @@ export class DynamicFormComponent implements OnInit {
           }
         }
       }
-      this.form.addControl(field.name, this.fb.control('', validators));
+      if(field.type === 'checkbox') {
+        this.form.addControl(field.name, this.fb.control(true, validators));
+      } else {
+        this.form.addControl(field.name, this.fb.control('', validators));
+      }
     }
   }
 
   onSubmit() {
+    // sending loading
+    this.dyForm.loading();
+
+
     if (this.form.valid) {
-      console.log(this.form.value);
+      this.dyForm.validateForm({});
+      // lets call a mock API which take 3 seconds to load and responds back with success
+      // use ngrx signal store
+      // while the API is loading show a loader in the screen
+
       // Add any further actions you want to perform on form submission
     } else {
       // Handle invalid form submission if needed

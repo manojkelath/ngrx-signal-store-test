@@ -56,9 +56,6 @@
             "Male",
             "Female",
             "Other"
-        ],
-        "validators": [
-            "required"
         ]
     }
 ]
