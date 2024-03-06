@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports : [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule 
   ],
   styleUrls: ['./dynamic-form.component.scss']
 })

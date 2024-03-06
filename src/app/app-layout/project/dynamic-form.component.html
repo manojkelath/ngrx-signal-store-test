@@ -5,6 +5,7 @@
     <label [for]="field.name">{{ field.label }}</label>
     <ng-container [ngSwitch]="field.type">
       <input *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+      <input *ngSwitchCase="'email'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
       <select *ngSwitchCase="'dropdown'" [formControlName]="field.name">
         <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
       </select>
