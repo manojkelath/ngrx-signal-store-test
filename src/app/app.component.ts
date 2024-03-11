@@ -3,12 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './app-layout/header/header.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, CommonModule, TranslateModule],
+  imports: [RouterOutlet, HeaderComponent, CommonModule, TranslateModule, MatSlideToggleModule, MatTabsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   
