@@ -1,21 +1,55 @@
 <!-- dynamic-form.component.html -->
-
+<div class="page-margin dynamic-form" >
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   @if(dyForm.isLoading()) {
     <div>LOADING ....</div>
   } @else {
     <div>NOT LOADING....</div>
   }
-  
-  <div *ngFor="let field of formConfig">
-    <label [for]="field.name">{{ field.label }}</label>
-    <ng-container [ngSwitch]="field.type">
-      <input *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
-      <input *ngSwitchCase="'password'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
-      <input *ngSwitchCase="'email'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
-      <select *ngSwitchCase="'dropdown'" [formControlName]="field.name">
+  <!-- top section -->
+<div class="form-box-top">
+  <div class="my-table">
+    <table>
+      <tr>
+        <th>Sponsor</th>
+        <td><input type="text" placeholder="Enter Sponsor"></td>
+        <th>Email</th>
+        <td><input type="text" placeholder="Email"></td>
+      </tr>
+    </table>
+
+  <div class="section">
+    <table>
+      <tr>
+        <th>Owner</th>
+        <td><input type="text" placeholder="Enter Sponsor"></td>
+        <th>Email</th>
+        <td><input type="text" placeholder="Email"></td>
+      </tr>
+    </table>
+  </div>
+  </div>
+</div>
+
+  <!-- Project creation section -->
+<div class="form-box">
+  <h3 class="active-projects"> Active Projects </h3>
+  <table class="my-table" *ngFor="let field of formConfig">
+    <tr>
+    <th>{{ field.label }}</th>
+    <td [ngSwitch]="field.type">
+      <input class="field-width" *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+      <select class="field-width" *ngSwitchCase="'dropdown'" [formControlName]="field.name">
         <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
       </select>
+      <select class="field-width" *ngSwitchCase="'dropdown-subtype'" [formControlName]="field.name">
+        <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+      </select>
+      <select class="field-width"  *ngSwitchCase="'dropdown-location'" [formControlName]="field.name">
+        <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+      </select>
+      <!-- <input class="field-width" *ngSwitchCase="'password'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+      <input class="field-width" *ngSwitchCase="'email'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
       <div *ngSwitchCase="'checkbox'">
         <input [type]="field.type" [formControlName]="field.name" [id]="field.name">
         {{ field.label }}
@@ -25,10 +59,32 @@
           <input [type]="field.type" [formControlName]="field.name" [value]="option">
           {{ option }}
         </label>
-      </div>
-    </ng-container>
-   
-  </div>
-  <button type="submit" [disabled]="form.invalid">Submit</button>
-  <!-- <button type="submit" >Submit</button> -->
+      </div> -->
+    </td>
+  </tr>
+  </table>
+<table class="my-table">
+  <tr>
+    <th>Description</th>
+    <td>
+      <textarea class="descriptn-area" placeholder="Type your description here" rows="10"></textarea>
+    </td>
+  </tr>
+</table>
+</div>
+
+ <!-- Product idea section -->
+<div class="form-box-bottom">
+  <h3 class="active-projects"> Product Idea </h3>
+  <table class="my-table" *ngFor="let field of formConfig">
+    <tr>
+    <th>{{ field.label }}</th>
+    <td [ngSwitch]="field.type">
+      <input class="field-width" *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+    </td>
+  </tr>
+  </table>
+</div>
 </form>
+<button class="create-btn" type="create" [disabled]="form.invalid">Create</button>
+</div>

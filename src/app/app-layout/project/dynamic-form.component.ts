@@ -19,6 +19,7 @@ import { DynamicFormService } from './dynamic-form.service';
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
+  description: string = '';
   form!: FormGroup;
   formConfig: any[] = [];
   selectedLanguage: string = 'en'; // Assuming English as the default language

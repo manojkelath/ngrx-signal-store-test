@@ -1,61 +1,42 @@
 [
     {
         "type": "text",
-        "name": "username",
-        "label": "Username",
-        "placeholder": "Enter your username",
+        "name": "Name",
+        "label": "Name",
+        "placeholder": "Enter your project name",
         "validators": [
             "required"
         ]
     },
-    {
-        "type": "email",
-        "name": "email",
-        "label": "Email",
-        "placeholder": "Enter your email",
-        "validators": [
-            "required",
-            "customValidator1"
-        ]
-    },
-    {
-        "type": "password",
-        "name": "password",
-        "label": "Password",
-        "placeholder": "Enter your password",
-        "validators": [
-            "required"
-        ]
-    },
-    {
+        {
         "type": "dropdown",
-        "name": "country",
-        "label": "Country",
+        "name": "tags",
+        "label": "tags",
         "options": [
-            "USA",
-            "Canada",
-            "UK"
-        ],
-        "validators": [
-            "required"
+            "test1",
+            "test2",
+            "test3"
         ]
     },
     {
-        "type": "checkbox",
-        "name": "agree",
-        "label": "I agree to the terms and conditions",
-        "validators": [
-            "required"
+        "type": "dropdown-subtype",
+        "name": "subtype",
+        "label": "subtype",
+        "options": [
+            "test1",
+            "test2",
+            "test3"
         ]
     },
     {
-        "type": "radio",
-        "name": "gender",
-        "label": "Gender",
+        "type": "dropdown-location",
+        "name": "Location",
+        "label": "Location",
         "options": [
-            "Male",
-            "Female",
-            "Other"
+            "test1",
+            "test2",
+            "test3"
         ]
     }
+
 ]
