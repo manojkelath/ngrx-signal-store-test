@@ -1,4 +1,16 @@
 .dynamic-form {
+  margin : 50px;
+
+  .section-title {
+    margin-bottom: 20px;
+  }
+  .sponsor-section {
+    display:flex;
+    .form-gap {
+      margin-right:40px;
+    }
+  }
+ 
 .form-box, .form-box-bottom {
     width: 1060px;
     height: 400px;

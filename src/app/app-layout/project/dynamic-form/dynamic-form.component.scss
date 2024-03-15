@@ -1,0 +1,72 @@
+.dynamic-form {
+  margin : 50px;
+
+  .section-title {
+    margin-bottom: 20px;
+  }
+  .sponsor-section {
+    display:flex;
+    .form-gap {
+      margin-right:40px;
+    }
+  }
+ 
+.form-box, .form-box-bottom {
+    width: 1060px;
+    height: 400px;
+    background-color: #e3ecf2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px 50px 0px 50px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .my-table {
+        width: 100%;
+        border-collapse: collapse;
+        .field-width {
+            width: 50%;
+        }
+      }
+      
+      .my-table th, .my-table td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+        width: 50%;
+      }
+
+}
+
+.form-box-top {
+    width: 1060px;
+    height: 60px;
+    background-color: #e3ecf2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px 50px 50px 50px;
+    margin-bottom :20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .my-table {
+        width: 50%;
+        border-collapse: collapse;
+      }
+      
+      .my-table th, .my-table td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+        width: 50%;
+      }
+    }
+
+.create-btn {
+    padding: 15px;
+    width: 120px;
+    margin-top: 20px;
+    background-color: #4aa9e9;
+    color: white;
+}
+.descriptn-area {
+    width: 50%;
+}
+}
