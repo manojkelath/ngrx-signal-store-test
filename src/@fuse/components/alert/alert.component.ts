@@ -3,11 +3,11 @@ import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { fuseAnimations } from '@fuse/animations';
+import { FuseAlertService } from '@fuse/components/alert/alert.service';
+import { FuseAlertAppearance, FuseAlertType } from '@fuse/components/alert/alert.types';
+import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { fuseAnimations } from '../../animations';
-import { FuseAlertAppearance, FuseAlertType } from './alert.types';
-import { FuseAlertService } from './alert.service';
-import { FuseUtilsService } from '../../services/utils/utils.service';
 
 @Component({
     selector       : 'fuse-alert',
@@ -94,7 +94,7 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
         if ( 'dismissed' in changes )
         {
             // Coerce the value to a boolean
-            this.dismissed = coerceBooleanProperty(changes['dismissed'].currentValue);
+            this.dismissed = coerceBooleanProperty(changes.dismissed.currentValue);
 
             // Dismiss/show the alert
             this._toggleDismiss(this.dismissed);
@@ -104,14 +104,14 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
         if ( 'dismissible' in changes )
         {
             // Coerce the value to a boolean
-            this.dismissible = coerceBooleanProperty(changes['dismissible'].currentValue);
+            this.dismissible = coerceBooleanProperty(changes.dismissible.currentValue);
         }
 
         // Show icon
         if ( 'showIcon' in changes )
         {
             // Coerce the value to a boolean
-            this.showIcon = coerceBooleanProperty(changes['showIcon'].currentValue);
+            this.showIcon = coerceBooleanProperty(changes.showIcon.currentValue);
         }
     }
 

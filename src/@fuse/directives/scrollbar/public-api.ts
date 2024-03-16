@@ -1,1 +1,1 @@
-// export * from './scrollbar.directive';
+export * from '@fuse/directives/scrollbar/scrollbar.directive';

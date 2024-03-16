@@ -430,8 +430,6 @@
     .mat-mdc-text-field-wrapper {
         padding: 0;
         border-radius: 6px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-color: rgb(203 213 225);
         border-width: 1px;
         border-style: solid;
         @apply shadow-sm bg-white border-gray-300 dark:bg-black dark:bg-opacity-5 dark:border-gray-500 #{'!important'};
@@ -440,8 +438,6 @@
         &:not(.mdc-text-field--no-label) {
             margin-top: 24px;
             overflow: visible;
-            margin-bottom: 24px;
-            width:300px;
         }
 
         .mat-mdc-form-field-focus-overlay {

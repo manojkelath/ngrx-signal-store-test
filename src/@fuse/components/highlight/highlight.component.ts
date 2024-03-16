@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EmbeddedViewRef, Input, OnChanges, Renderer2, SecurityContext, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FuseHighlightService } from '@fuse/components/highlight/highlight.service';
 
 @Component({
     selector       : 'textarea[fuse-highlight]',
@@ -14,12 +15,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class FuseHighlightComponent implements OnChanges, AfterViewInit
 {
-    @Input() code!: string;
-    @Input() lang!: string;
-    @ViewChild(TemplateRef) templateRef!: TemplateRef<any>;
+    @Input() code: string;
+    @Input() lang: string;
+    @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
-    highlightedCode!: string;
-    private _viewRef!: EmbeddedViewRef<any>;
+    highlightedCode: string;
+    private _viewRef: EmbeddedViewRef<any>;
 
     /**
      * Constructor
@@ -29,7 +30,7 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         private _domSanitizer: DomSanitizer,
         private _elementRef: ElementRef,
         private _renderer2: Renderer2,
-        // private _fuseHighlightService: FuseHighlightService,
+        private _fuseHighlightService: FuseHighlightService,
         private _viewContainerRef: ViewContainerRef,
     )
     {
@@ -110,8 +111,11 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         if ( this._viewRef )
         {
             this._viewRef.destroy();
-
+            this._viewRef = null;
         }
+
+        // Highlight and sanitize the code just in case
+        this.highlightedCode = this._domSanitizer.sanitize(SecurityContext.HTML, this._fuseHighlightService.highlight(this.code, this.lang));
 
         // Return if the highlighted code is null
         if ( this.highlightedCode === null )

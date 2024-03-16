@@ -1,1 +1,1 @@
-export * from './public-api';
+export * from '@fuse/directives/scroll-reset/public-api';

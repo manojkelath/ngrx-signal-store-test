@@ -1,3 +1,3 @@
-export * from './drawer.component';
-export * from './drawer.service';
-export * from './drawer.types';
+export * from '@fuse/components/drawer/drawer.component';
+export * from '@fuse/components/drawer/drawer.service';
+export * from '@fuse/components/drawer/drawer.types';

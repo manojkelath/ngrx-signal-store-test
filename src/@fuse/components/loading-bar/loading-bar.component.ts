@@ -2,8 +2,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FuseLoadingService } from '@fuse/services/loading';
 import { Subject, takeUntil } from 'rxjs';
-import { FuseLoadingService } from '../../services/loading/loading.service';
 
 @Component({
     selector     : 'fuse-loading-bar',
@@ -17,7 +17,7 @@ import { FuseLoadingService } from '../../services/loading/loading.service';
 export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
 {
     @Input() autoMode: boolean = true;
-    mode!: 'determinate' | 'indeterminate';
+    mode: 'determinate' | 'indeterminate';
     progress: number = 0;
     show: boolean = false;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -44,7 +44,7 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
         if ( 'autoMode' in changes )
         {
             // Set the auto mode in the service
-            this._fuseLoadingService.setAutoMode(coerceBooleanProperty(changes['autoMode'].currentValue));
+            this._fuseLoadingService.setAutoMode(coerceBooleanProperty(changes.autoMode.currentValue));
         }
     }
 

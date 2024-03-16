@@ -1,9 +1,8 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgIf } from '@angular/common';
 import { Component, HostBinding, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { fuseAnimations } from '../../animations';
-import { FuseCardFace } from './card.types';
-
+import { fuseAnimations } from '@fuse/animations';
+import { FuseCardFace } from '@fuse/components/card/card.types';
 
 @Component({
     selector     : 'fuse-card',
@@ -67,14 +66,14 @@ export class FuseCardComponent implements OnChanges
         if ( 'expanded' in changes )
         {
             // Coerce the value to a boolean
-            this.expanded = coerceBooleanProperty(changes['expanded'].currentValue);
+            this.expanded = coerceBooleanProperty(changes.expanded.currentValue);
         }
 
         // Flippable
         if ( 'flippable' in changes )
         {
             // Coerce the value to a boolean
-            this.flippable = coerceBooleanProperty(changes['flippable'].currentValue);
+            this.flippable = coerceBooleanProperty(changes.flippable.currentValue);
         }
     }
 }

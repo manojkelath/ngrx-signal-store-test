@@ -1,2 +1,2 @@
-export * from './config.service';
-export * from './config.types';
+export * from '@fuse/services/config/config.service';
+export * from '@fuse/services/config/config.types';
