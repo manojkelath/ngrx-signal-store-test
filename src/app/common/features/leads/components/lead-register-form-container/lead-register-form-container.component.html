@@ -1,8 +1,0 @@
-<kv-lead-register-form
-  [provinceOptions]="provinceOptions$ | async"
-  [cityOptions]="cityOptions$ | async"
-  [isSuccessMessage]="isSuccessMessage$ | async"
-  (submitFormEvent)="submitForm($event)"
-  (closeFormEvent)="hideFormAction()"
-  (provinceChanged)="onProvinceChange($event)"
-></kv-lead-register-form>

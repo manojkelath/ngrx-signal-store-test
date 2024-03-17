@@ -1,8 +1,0 @@
-@use 'common';
-
-:host {
-  position: fixed;
-  right: common.pixel2rem(8);
-  bottom: common.pixel2rem(140);
-  z-index: common.$fixed-layer;
-}

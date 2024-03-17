@@ -1,38 +1,23 @@
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideFuse } from '@fuse';
-// import { provideTransloco, TranslocoService } from '@ngneat/transloco';
-// import { firstValueFrom } from 'rxjs';
-import { routes } from './app.routes';
+import { provideTransloco, TranslocoService } from '@ngneat/transloco';
+import { firstValueFrom } from 'rxjs';
+import { appRoutes } from 'app/app.routes';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
-// import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
-}
+import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
         provideHttpClient(),
-        importProvidersFrom(
-          TranslateModule.forRoot({
-            loader: {
-              provide: TranslateLoader,
-              useFactory: HttpLoaderFactory,
-              deps: [HttpClient],
-            },
-          })),
-        provideRouter(routes,
+        provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
             withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
         ),
@@ -57,6 +42,39 @@ export const appConfig: ApplicationConfig = {
             },
         },
 
+        // Transloco Config
+        provideTransloco({
+            config: {
+                availableLangs      : [
+                    {
+                        id   : 'en',
+                        label: 'English',
+                    },
+                    {
+                        id   : 'tr',
+                        label: 'Turkish',
+                    },
+                ],
+                defaultLang         : 'en',
+                fallbackLang        : 'en',
+                reRenderOnLangChange: true,
+                prodMode            : true,
+            },
+            loader: TranslocoHttpLoader,
+        }),
+        {
+            // Preload the default language before the app starts to prevent empty/jumping content
+            provide   : APP_INITIALIZER,
+            useFactory: () =>
+            {
+                const translocoService = inject(TranslocoService);
+                const defaultLang = translocoService.getDefaultLang();
+                translocoService.setActiveLang(defaultLang);
+
+                return () => firstValueFrom(translocoService.load(defaultLang));
+            },
+            multi     : true,
+        },
 
         // Fuse
         provideAuth(),
@@ -67,7 +85,7 @@ export const appConfig: ApplicationConfig = {
                 services: mockApiServices,
             },
             fuse   : {
-                layout : 'classy',
+                layout : 'classic',
                 scheme : 'light',
                 screens: {
                     sm: '600px',

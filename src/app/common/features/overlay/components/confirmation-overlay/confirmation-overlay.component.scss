@@ -1,9 +1,0 @@
-@use 'common';
-
-:host {
-  @include common.overlay-config
-}
-
-.kv-modal__page-container {
-  width: common.pixel2rem(500);
-}

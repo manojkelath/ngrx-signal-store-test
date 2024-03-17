@@ -1,9 +1,0 @@
-<div [ngSwitch]="activePage" class="kv-modal__page-container">
-  <kv-login-container *ngSwitchCase="authPages.LOGIN"></kv-login-container>
-  <kv-sign-up-container *ngSwitchCase="authPages.KV_SIGN_UP"></kv-sign-up-container>
-  <kv-ah-sign-up-container *ngSwitchCase="authPages.AH_SIGN_UP"></kv-ah-sign-up-container>
-  <kv-change-password-container *ngSwitchCase="authPages.CHANGE_PASSWORD"></kv-change-password-container>
-  <kv-forgot-password-container *ngSwitchCase="authPages.FORGOT_PASSWORD"></kv-forgot-password-container>
-  <kv-validation-code-container *ngSwitchCase="authPages.VALIDATION_CODE"></kv-validation-code-container>
-  <kv-sign-up-confirmation-container *ngSwitchCase="authPages.SIGN_UP_CONFIRMATION"></kv-sign-up-confirmation-container>
-</div>
