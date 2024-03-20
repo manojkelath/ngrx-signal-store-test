@@ -4,39 +4,25 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id      : 'dashboards',
-        title   : 'Dashboards',
-        subtitle: 'Unique dashboard designs',
+        title   : '',
+        subtitle: '',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [
             {
                 id   : 'dashboards.project',
-                title: 'Project',
+                title: 'Project A',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-document-check',
                 link : '/dashboards/project',
             },
             {
                 id   : 'dashboards.analytics',
-                title: 'Analytics',
+                title: 'Project B',
                 type : 'basic',
                 icon : 'heroicons_outline:chart-pie',
                 link : '/dashboards/analytics',
-            },
-            {
-                id   : 'dashboards.finance',
-                title: 'Finance',
-                type : 'basic',
-                icon : 'heroicons_outline:banknotes',
-                link : '/dashboards/finance',
-            },
-            {
-                id   : 'dashboards.crypto',
-                title: 'Crypto',
-                type : 'basic',
-                icon : 'heroicons_outline:currency-dollar',
-                link : '/dashboards/crypto',
-            },
+            }
         ],
     },
     {

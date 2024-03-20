@@ -11,7 +11,8 @@ const generatePalette = require(path.resolve(__dirname, ('src/@fuse/tailwind/uti
  */
 const customPalettes = {
     brand: generatePalette('#2196F3'),
-    primary: generatePalette('#FF375E')
+    primary: generatePalette('#FF375E'),
+    stcpurple: generatePalette('#4F008C')
 };
 
 /**
@@ -58,6 +59,9 @@ const themes = {
     },
     'amber' : {
         primary: colors.amber
+    },
+    'stcpurple' : {
+        primary: customPalettes.stcpurple
     }
 };
 
@@ -109,6 +113,18 @@ const config = {
                     700: '#cd2c4b', 
                     800: '#ae2540', 
                     900: '#891d32'
+                },
+                stcpurple: {
+                    50: '#f1eff4', 
+                    100: '#e5e1eb', 
+                    200: '#cac3d7', 
+                    300: '#ab9fc1', 
+                    400: '#8571a9', 
+                    500: '#4f008c', 
+                    600: '#48007f', 
+                    700: '#3f0070', 
+                    800: '#360060', 
+                    900: '#2a004b', 
                 }
             },
             flex                    : {
