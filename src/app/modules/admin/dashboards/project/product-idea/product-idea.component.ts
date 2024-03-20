@@ -1,8 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { FormConfigService } from './form-config.service';
-import { customValidator } from './custom-validator';
-import { DynamicStore } from './dynamic-form.store';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,18 +7,19 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { DynamicStore } from '../dynamic-form/dynamic-form.store';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
+  selector: 'app-product-idea',
+  templateUrl: './product-idea.component.html',
   standalone: true,
   imports : [
     FormsModule, ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatInputModule, TextFieldModule, MatSelectModule, MatOptionModule, MatButtonModule
   ],
   providers : [DynamicStore],
-  styleUrls: ['./dynamic-form.component.scss']
+  styleUrls: ['./product-idea.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class ProductIdeaComponent implements OnInit {
   
     accountForm!: UntypedFormGroup;
 
@@ -51,9 +49,9 @@ export class DynamicFormComponent implements OnInit {
             company : ['YXZ Software'],
             about   : [''],
             email   : ['hughes.brian@mail.com', Validators.email],
-            phone   : ['121-490-33-12'],
-            country : ['usa'],
-            language: ['english'],
+            subtype : [''],
+            tags    : [''],
+            location: [''],
         });
     }
   // description: string = '';

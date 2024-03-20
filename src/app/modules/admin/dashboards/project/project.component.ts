@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { ActiveProjectComponent } from './active-project/active-project.component';
+import { ProductIdeaComponent } from './product-idea/product-idea.component';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone     : true,
-    imports        : [MatSidenavModule, MatButtonModule, MatIconModule, NgFor, NgClass, NgSwitch, NgSwitchCase, DynamicFormComponent],
+    imports        : [MatSidenavModule, MatButtonModule, MatIconModule, NgFor, NgClass, NgSwitch, NgSwitchCase, DynamicFormComponent, ActiveProjectComponent, ProductIdeaComponent ],
     styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit, OnDestroy
@@ -54,6 +56,11 @@ export class ProjectComponent implements OnInit, OnDestroy
                 id         : 'projects',
                 icon       : 'heroicons_outline:lock-closed',
                 title      : 'Active Projects',
+            },
+            {
+                id         : 'product_idea',
+                icon       : 'heroicons_outline:lock-closed',
+                title      : 'Product Idea',
             },
             // {
             //     id         : 'Active Projects',

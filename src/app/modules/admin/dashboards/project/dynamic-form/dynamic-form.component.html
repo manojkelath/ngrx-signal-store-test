@@ -3,14 +3,14 @@
 
   <!-- Form -->
   <form [formGroup]="accountForm" >
-      <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+      <div class="w-full mt-8">
           <!-- Name -->
           <div class="sponsor-section">
             <div class="form-gap">
               <mat-form-field
                   class="w-full "
                   [subscriptSizing]="'dynamic'">
-                  <mat-label>Name</mat-label>
+                  <mat-label>Sponsor Name</mat-label>
                   <mat-icon
                       class="icon-size-5"
                       matPrefix></mat-icon>
@@ -19,11 +19,11 @@
                       matInput>
               </mat-form-field>
             </div>
-            <div>
+            <div class="form-gap">
               <mat-form-field
               class="w-full"
               [subscriptSizing]="'dynamic'">
-              <mat-label>Email</mat-label>
+              <mat-label>Sponsor Email</mat-label>
               <mat-icon
                   class="icon-size-5"
                   matPrefix></mat-icon>
@@ -32,137 +32,39 @@
                   matInput>
           </mat-form-field>
         </div>
-          </div>
-          <!-- Username -->
-          <div class="sm:col-span-4">
-              <mat-form-field
-                  class="fuse-mat-emphasized-affix w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Username</mat-label>
-                  <input
-                      [formControlName]="'username'"
-                      matInput>
-              </mat-form-field>
-          </div>
-          <!-- Title -->
-          <div class="sm:col-span-2">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Title</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <input
-                      [formControlName]="'title'"
-                      matInput>
-              </mat-form-field>
-          </div>
-          <!-- Company -->
-          <div class="sm:col-span-2">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Company</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <input
-                      [formControlName]="'company'"
-                      matInput>
-              </mat-form-field>
-          </div>
-          <!-- About -->
-          <div class="sm:col-span-4">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>About</mat-label>
-                  <textarea
-                      matInput
-                      [formControlName]="'about'"
-                      cdkTextareaAutosize
-                      [cdkAutosizeMinRows]="5"></textarea>
-              </mat-form-field>
-              <div class="mt-1 text-md text-hint">Brief description </div>
-          </div>
       </div>
-
-      <!-- Divider -->
-      <div class="my-10 border-t"></div>
-
-      <!-- Section -->
-      <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
-          <!-- Email -->
-          <div class="sm:col-span-2">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Email</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <input
-                      [formControlName]="'email'"
-                      matInput>
-              </mat-form-field>
-          </div>
-          <!-- Phone -->
-          <div class="sm:col-span-2">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Phone</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <input
-                      [formControlName]="'phone'"
-                      matInput>
-              </mat-form-field>
-          </div>
-          <!-- Country -->
-          <div class="sm:col-span-2">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Country</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <mat-select [formControlName]="'country'">
-                      <mat-option [value]="'usa'">United States</mat-option>
-                      <mat-option [value]="'canada'">Canada</mat-option>
-                      <mat-option [value]="'mexico'">Mexico</mat-option>
-                      <mat-option [value]="'france'">France</mat-option>
-                      <mat-option [value]="'germany'">Germany</mat-option>
-                      <mat-option [value]="'italy'">Italy</mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
-          <!-- Language -->
-          <div class="sm:col-span-2">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Language</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <mat-select [formControlName]="'language'">
-                      <mat-option [value]="'english'">English</mat-option>
-                      <mat-option [value]="'french'">French</mat-option>
-                      <mat-option [value]="'spanish'">Spanish</mat-option>
-                      <mat-option [value]="'german'">German</mat-option>
-                      <mat-option [value]="'italian'">Italian</mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
       </div>
-
-      <!-- Divider -->
-      <div class="mt-11 mb-10 border-t"></div>
-
+      <div class="w-full mt-8">
+        <!-- Name -->
+        <div class="sponsor-section">
+          <div class="form-gap">
+            <mat-form-field
+                class="w-full "
+                [subscriptSizing]="'dynamic'">
+                <mat-label>Owner Name</mat-label>
+                <mat-icon
+                    class="icon-size-5"
+                    matPrefix></mat-icon>
+                <input
+                    [formControlName]="'name'"
+                    matInput>
+            </mat-form-field>
+          </div>
+          <div class="form-gap">
+            <mat-form-field
+            class="w-full"
+            [subscriptSizing]="'dynamic'">
+            <mat-label>Owner Email</mat-label>
+            <mat-icon
+                class="icon-size-5"
+                matPrefix></mat-icon>
+                <input
+                [formControlName]="'email'"
+                matInput>
+        </mat-form-field>
+      </div>
+    </div>
+    </div>
       <!-- Actions -->
       <div class="flex items-center justify-end">
           <button

@@ -10,7 +10,7 @@
               <mat-form-field
                   class="w-full "
                   [subscriptSizing]="'dynamic'">
-                  <mat-label>Name</mat-label>
+                  <mat-label>Product Name</mat-label>
                   <mat-icon
                       class="icon-size-5"
                       matPrefix></mat-icon>
@@ -24,7 +24,7 @@
             <mat-form-field
             class="w-full"
             [subscriptSizing]="'dynamic'">
-            <mat-label>Tags</mat-label>
+            <mat-label>Product Category</mat-label>
             <mat-icon
                 class="icon-size-5"
                 matPrefix></mat-icon>
@@ -47,7 +47,7 @@
               <mat-form-field
                   class="w-full"
                   [subscriptSizing]="'dynamic'">
-                  <mat-label>Subtype</mat-label>
+                  <mat-label>Product Portfolio</mat-label>
                   <mat-icon
                       class="icon-size-5"
                       matPrefix></mat-icon>
@@ -61,25 +61,6 @@
                   </mat-select>
               </mat-form-field>
             </div>
-   
-      <!-- Location -->
-          <div class="form-gap">
-              <mat-form-field
-                  class="w-full"
-                  [subscriptSizing]="'dynamic'">
-                  <mat-label>Location</mat-label>
-                  <mat-icon
-                      class="icon-size-5"
-                      matPrefix></mat-icon>
-                  <mat-select [formControlName]="'location'">
-                      <mat-option [value]="'english'">English</mat-option>
-                      <mat-option [value]="'french'">French</mat-option>
-                      <mat-option [value]="'spanish'">Spanish</mat-option>
-                      <mat-option [value]="'german'">German</mat-option>
-                      <mat-option [value]="'italian'">Italian</mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
       </div>
     </div>
           <!-- About -->
@@ -87,18 +68,16 @@
               <mat-form-field
                   class="w-full"
                   [subscriptSizing]="'dynamic'">
-                  <mat-label>About</mat-label>
+                  <mat-label>Product Overview</mat-label>
                   <textarea
                       matInput
                       [formControlName]="'about'"
                       cdkTextareaAutosize
-                      [cdkAutosizeMinRows]="5"></textarea>
+                      [cdkAutosizeMinRows]="3"></textarea>
               </mat-form-field>
-          </div>
+        </div>
  
 
-
-   
       <!-- Divider -->
       <div class="mt-11 mb-10 border-t"></div>
 
@@ -115,6 +94,8 @@
               type="button"
             >Save
           </button>
+          <button mat-flat-button color="primary"> TEST</button>
+
       </div>
   </form>
 

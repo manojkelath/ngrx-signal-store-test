@@ -1,7 +1,6 @@
 
-<div class="flex flex-wrap w-full max-w-screen-xl mx-auto pt-6">
+<div class="flex flex-wrap w-full max-w-screen-xl mx-auto">
  <!-- Title -->
- <h2>Create New Project</h2>
 <mat-drawer-container class="flex-auto sm:h-full">
     <!-- Drawer -->
     <mat-drawer
@@ -26,7 +25,7 @@
         <div class="panel-style">
             <ng-container *ngFor="let panel of panels; trackBy: trackByFn">
                 <div
-                    class="panel-section"
+                    class="panel-section flex"
                     [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedPanel || selectedPanel !== panel.id,
                                 'bg-primary-50 dark:bg-hover': selectedPanel && selectedPanel === panel.id}"
                     (click)="goToPanel(panel.id)">
@@ -64,7 +63,7 @@
                 </button>
 
                 <!-- Panel title -->
-                <div class="panel-right">
+                <div class="panel-right text-3xl font-semibold">
                     {{getPanelInfo(selectedPanel).title}}
                 </div>
             </div>
@@ -77,9 +76,13 @@
                         <app-dynamic-form></app-dynamic-form>
                     </ng-container>
                          <!-- Active projects -->
-                         <ng-container *ngSwitchCase="'projects'">
-                            <app-dynamic-form></app-dynamic-form>
-                        </ng-container>
+                    <ng-container *ngSwitchCase="'projects'">
+                        <app-active-project></app-active-project>
+                    </ng-container>
+                        <!-- Product Idea -->
+                    <ng-container *ngSwitchCase="'product_idea'">
+                         <app-product-idea></app-product-idea>
+                    </ng-container>
                    
                 </ng-container>
             </div>

@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DynamicStore } from '../dynamic-form/dynamic-form.store';
 
 @Component({
-  selector: 'app-dynamic-form',
+  selector: 'app-active-project',
   templateUrl: './active-project.component.html',
   standalone: true,
   imports : [
@@ -19,7 +19,7 @@ import { DynamicStore } from '../dynamic-form/dynamic-form.store';
   providers : [DynamicStore],
   styleUrls: ['./active-project.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class ActiveProjectComponent implements OnInit {
   
     accountForm!: UntypedFormGroup;
 
@@ -47,11 +47,11 @@ export class DynamicFormComponent implements OnInit {
             username: ['brianh'],
             title   : ['Senior Frontend Developer'],
             company : ['YXZ Software'],
-            about   : ['Hey! This is Brian; husband, father and gamer. I\'m mostly passionate about bleeding edge tech and chocolate! 🍫'],
+            about   : [''],
             email   : ['hughes.brian@mail.com', Validators.email],
-            phone   : ['121-490-33-12'],
-            country : ['usa'],
-            language: ['english'],
+            subtype : [''],
+            tags    : [''],
+            location: [''],
         });
     }
   // description: string = '';
