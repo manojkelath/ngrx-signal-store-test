@@ -14,14 +14,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Project A',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-document-check',
-                link : '/dashboards/project',
+                link : '/dashboards/project-overview',
             },
             {
-                id   : 'dashboards.analytics',
+                id   : 'dashboards.newproject',
                 title: 'Project B',
                 type : 'basic',
                 icon : 'heroicons_outline:chart-pie',
-                link : '/dashboards/analytics',
+                link : '/dashboards/new-project',
             }
         ],
     },

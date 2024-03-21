@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class AnalyticsService
+export class NewProjectService
 {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
@@ -35,7 +35,7 @@ export class AnalyticsService
      */
     getData(): Observable<any>
     {
-        return this._httpClient.get('api/dashboards/analytics').pipe(
+        return this._httpClient.get('api/dashboards/new-project').pipe(
             tap((response: any) =>
             {
                 this._data.next(response);

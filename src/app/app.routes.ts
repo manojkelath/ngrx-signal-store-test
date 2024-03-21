@@ -10,14 +10,14 @@ import { LayoutComponent } from 'app/layout/layout.component';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/dashboards/project'
-    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project'},
+    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project-overview'},
 
     // Redirect signed-in user to the '/dashboards/project'
     //
     // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'dashboards/project'},
+    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'dashboards/project-overview'},
     // Auth routes for guests
     {
         path: '',
@@ -61,7 +61,9 @@ export const appRoutes: Route[] = [
 
             // Dashboards
             {path: 'dashboards', children: [
-                {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.routes')},
+                {path: 'new-project', loadChildren: () => import('app/modules/admin/dashboards/new-project/new-project.routes')},
+                {path: 'project-overview', loadChildren: () => import('app/modules/admin/dashboards/project-overview/project-overview.routes')},
+
 
             ]},
 

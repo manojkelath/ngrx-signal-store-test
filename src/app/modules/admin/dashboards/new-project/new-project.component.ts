@@ -15,14 +15,14 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 
 @Component({
-    selector       : 'analytics',
-    templateUrl    : './analytics.component.html',
+    selector       : 'new-project',
+    templateUrl    : './new-project.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone     : true,
     imports        : [MatIconModule, FormsModule, ReactiveFormsModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatButtonModule, MatCheckboxModule, MatRadioModule],
 })
-export class AnalyticsComponent implements OnInit
+export class NewProjectComponent implements OnInit
 {
     horizontalStepperForm: UntypedFormGroup;
 
