@@ -18,6 +18,35 @@ export const appRoutes: Route[] = [
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
     {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'dashboards/project'},
+    // Auth routes for guests
+    {
+        path: '',
+        canActivate: [NoAuthGuard],
+        canActivateChild: [NoAuthGuard],
+        component: LayoutComponent,
+        data: {
+            layout: 'empty'
+        },
+        children: [
+            {path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes')},
+            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes')},
+            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
+            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
+            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')}
+        ]
+    },
+    // Auth routes for authenticated users
+    {
+        path: '',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        data: {
+            layout: 'empty'
+        },
+        children: [
+            {path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes')}            ]
+    },
 
     // Admin routes
     {
@@ -32,10 +61,8 @@ export const appRoutes: Route[] = [
 
             // Dashboards
             {path: 'dashboards', children: [
-                {path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.routes')},
                 {path: 'analytics', loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.routes')},
-                {path: 'finance', loadChildren: () => import('app/modules/admin/dashboards/finance/finance.routes')},
-                {path: 'crypto', loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.routes')},
+
             ]},
 
             // Apps
