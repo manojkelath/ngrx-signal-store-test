@@ -3,6 +3,20 @@
             <form
                 class="p-4 bg-card shadow rounded overflow-hidden w-full"
                 [formGroup]="horizontalStepperForm">
+                <div class="flex m-8">
+                    <mat-form-field class="w-100">
+                        <mat-select
+                            [formControlName]="'b2bCatalog'"
+                            [placeholder]="'B2B Catalog'"
+                            [disabled]="true"
+                            required>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                    </mat-form-field>
+                </div>
                 <mat-horizontal-stepper class="mt-5"
                     [linear]="true"
                     #horizontalStepper>

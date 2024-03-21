@@ -1,4 +1,4 @@
-<div class="w-full">
+<div class="w-full" *ngIf="true; else projectsList">
     <!-- Page for when there are no projects -->
     <div class="pl-4 pr-4">  
     <div class="flex justify-center items-center h-screen">
@@ -14,4 +14,13 @@
     </div>
 </div>
   </div>
-  
+  <ng-template #projectsList>
+    <!-- Page for when there are projects -->
+    <div>
+      <h2>Project Overview</h2>
+      <ul>
+        <li >project A</li>
+        <li >project B</li>
+      </ul>
+    </div>
+  </ng-template>

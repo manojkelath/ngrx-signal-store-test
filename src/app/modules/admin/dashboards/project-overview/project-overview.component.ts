@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
@@ -9,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone     : true,
-    imports        : [MatButtonModule,RouterModule],
+    imports        : [MatButtonModule,RouterModule,NgIf],
 })
 export class ProjectOverviewComponent implements OnInit
 {
@@ -23,7 +24,7 @@ export class ProjectOverviewComponent implements OnInit
         
     }
     createNewProject() {
-        this._router.navigate(['/dashboard/new-project']); // specify the route you want to navigate to
+        this._router.navigate(['new-project']); // specify the route you want to navigate to
   }
 
     // -----------------------------------------------------------------------------------------------------

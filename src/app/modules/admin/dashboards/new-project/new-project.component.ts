@@ -45,6 +45,7 @@ export class NewProjectComponent implements OnInit
         // Horizontal stepper form
         this.horizontalStepperForm = this._formBuilder.group({
             step1: this._formBuilder.group({
+                b2bCatalog: [''],
                 sponsorName: ['', Validators.required],
                 ownerName: ['', Validators.required],
                 sponsorEmail: ['', [Validators.required, Validators.email]],
