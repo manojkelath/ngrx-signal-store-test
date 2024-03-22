@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Router, RouterModule } from '@angular/router';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone     : true,
-    imports        : [MatButtonModule,RouterModule,NgIf],
+    imports        : [MatButtonModule,RouterModule,NgIf,ProjectListComponent],
 })
 export class ProjectComponent implements OnInit
 {
