@@ -14,7 +14,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Project A',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-document-check',
-                link : '/dashboards/project-overview',
+                link : '/dashboards/project',
             },
             {
                 id   : 'dashboards.newproject',

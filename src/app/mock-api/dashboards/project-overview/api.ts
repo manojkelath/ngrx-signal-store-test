@@ -30,7 +30,7 @@ export class ProjectOverviewMockApi
         // @ Sales - GET
         // -----------------------------------------------------------------------------------------------------
         this._fuseMockApiService
-            .onGet('api/dashboards/project-overview')
+            .onGet('api/dashboards/project')
             .reply(() => [200, cloneDeep(this._analytics)]);
     }
 }

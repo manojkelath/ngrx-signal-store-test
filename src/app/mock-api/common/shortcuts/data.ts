@@ -21,7 +21,7 @@ export const shortcuts = [
         label      : 'Dashboard',
         description: 'Project Overview',
         icon       : 'heroicons_outline:information-circle',
-        link       : '/dashboards/project-overview',
+        link       : '/dashboards/project',
         useRouter  : true,
     },
     {

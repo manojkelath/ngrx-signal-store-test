@@ -5,27 +5,24 @@ import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
-    selector       : 'project-overview',
-    templateUrl    : './project-overview.component.html',
+    selector       : 'project-details',
+    templateUrl    : './project-details.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone     : true,
     imports        : [MatButtonModule,RouterModule,NgIf],
 })
-export class ProjectOverviewComponent implements OnInit
+export class ProjectDetailsComponent implements OnInit
 {
 
 
     /**
      * Constructor
      */
-    constructor(private _router: Router)
+    constructor()
     {
         
     }
-    createNewProject() {
-        this._router.navigate(['new-project']); // specify the route you want to navigate to
-  }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
