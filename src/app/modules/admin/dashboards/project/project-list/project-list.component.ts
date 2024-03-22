@@ -24,7 +24,16 @@ import { debounceTime, map, merge, Observable, Subject, switchMap, takeUntil } f
     templateUrl    : './project-list.component.html',
     styles         : [
         /* language=SCSS */
+
+   
         `
+             .table-row {
+                &:hover {
+                    cursor: pointer;
+                    background : lightgrey;
+                }
+
+            }
             .inventory-grid {
                 grid-template-columns: 48px auto 40px;
 
@@ -53,7 +62,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
 
-    products$: Observable<InventoryProduct[]>;
+    products: InventoryProduct[];
 
     brands: InventoryBrand[];
     categories: InventoryCategory[];
@@ -91,6 +100,11 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      */
     ngOnInit(): void
     {
+
+        this._inventoryService.getProducts(0,5).subscribe((res)=>{
+            this.products = res.products;
+         });
+
         // Create the selected product form
         this.selectedProductForm = this._formBuilder.group({
             id               : [''],
@@ -115,29 +129,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
             active           : [false],
         });
 
-        // Get the brands
-        this._inventoryService.brands$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((brands: InventoryBrand[]) =>
-            {
-                // Update the brands
-                this.brands = brands;
 
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Get the categories
-        this._inventoryService.categories$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((categories: InventoryCategory[]) =>
-            {
-                // Update the categories
-                this.categories = categories;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
 
         // Get the pagination
         this._inventoryService.pagination$
@@ -152,50 +144,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
             });
 
         // Get the products
-        this.products$ = this._inventoryService.products$;
+        // this.products$ = this._inventoryService.products$;
 
-        // Get the tags
-        this._inventoryService.tags$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((tags: InventoryTag[]) =>
-            {
-                // Update the tags
-                this.tags = tags;
-                this.filteredTags = tags;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Get the vendors
-        this._inventoryService.vendors$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((vendors: InventoryVendor[]) =>
-            {
-                // Update the vendors
-                this.vendors = vendors;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Subscribe to search input field value changes
-        this.searchInputControl.valueChanges
-            .pipe(
-                takeUntil(this._unsubscribeAll),
-                debounceTime(300),
-                switchMap((query) =>
-                {
-                    this.closeDetails();
-                    this.isLoading = true;
-                    return this._inventoryService.getProducts(0, 10, 'name', 'asc', query);
-                }),
-                map(() =>
-                {
-                    this.isLoading = false;
-                }),
-            )
-            .subscribe();
     }
 
     /**
@@ -206,40 +156,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         if ( this._sort && this._paginator )
         {
             // Set the initial sort
-            this._sort.sort({
-                id          : 'name',
-                start       : 'asc',
-                disableClear: true,
-            });
 
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-
-            // If the user changes the sort order...
-            this._sort.sortChange
-                .pipe(takeUntil(this._unsubscribeAll))
-                .subscribe(() =>
-                {
-                    // Reset back to the first page
-                    this._paginator.pageIndex = 0;
-
-                    // Close the details
-                    this.closeDetails();
-                });
-
-            // Get products if sort or page changes
-            merge(this._sort.sortChange, this._paginator.page).pipe(
-                switchMap(() =>
-                {
-                    this.closeDetails();
-                    this.isLoading = true;
-                    return this._inventoryService.getProducts(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
-                }),
-                map(() =>
-                {
-                    this.isLoading = false;
-                }),
-            ).subscribe();
         }
     }
 
