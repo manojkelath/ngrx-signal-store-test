@@ -4,6 +4,12 @@ import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 
+export interface ILoginInfoModel {
+    user: string;
+    password: string;
+  }
+
+  
 @Injectable({providedIn: 'root'})
 export class AuthService
 {
@@ -52,12 +58,18 @@ export class AuthService
         return this._httpClient.post('api/auth/reset-password', password);
     }
 
+    mapUserLoginInfoToPortal = (loginInfo: ILoginInfoModel): ILoginInfoModel => ({
+        ...loginInfo,
+        user: `Portal:${loginInfo.user}`,
+    });
+
     /**
      * Sign in
+     * User is email
      *
      * @param credentials
      */
-    signIn(credentials: { email: string; password: string }): Observable<any>
+    signIn(credentials: { user: string; password: string }): Observable<any>
     {
         // Throw error, if the user is already logged in
         if ( this._authenticated )
@@ -65,7 +77,7 @@ export class AuthService
             return throwError('User is already logged in.');
         }
 
-        return this._httpClient.post('api/auth/sign-in', credentials).pipe(
+        return this._httpClient.post('service/idm/authentication/login', this.mapUserLoginInfoToPortal(credentials)).pipe(
             switchMap((response: any) =>
             {
                 // Store the access token in the local storage
