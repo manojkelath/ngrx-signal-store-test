@@ -11,26 +11,35 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { NewProjectService } from './new-project.service';
+import { ActivatedRoute } from '@angular/router';
 
+export interface Owner {
+    name: string;
+    value: string
+}
 
+export interface Sponsor {
+    name: string;
+    value: string
+}
 
 @Component({
-    selector       : 'new-project',
-    templateUrl    : './new-project.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'new-project',
+    templateUrl: './new-project.component.html',
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone     : true,
-    imports        : [MatIconModule, FormsModule, ReactiveFormsModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatButtonModule, MatCheckboxModule, MatRadioModule],
+    standalone: true,
+    imports: [MatIconModule, FormsModule, NgFor, ReactiveFormsModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatButtonModule, MatCheckboxModule, MatRadioModule],
 })
-export class NewProjectComponent implements OnInit
-{
+export class NewProjectComponent implements OnInit {
     horizontalStepperForm: UntypedFormGroup;
-
+    owners: Owner[];
+    sponsors: Sponsor[];
     /**
      * Constructor
      */
-    constructor(private _formBuilder: UntypedFormBuilder)
-    {
+    constructor(private _formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -40,8 +49,11 @@ export class NewProjectComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
+        this.activatedRoute.data.subscribe(({ data, owners, sponsors }) => {
+            this.owners = owners;
+            this.sponsors = sponsors;
+        });
         // Horizontal stepper form
         this.horizontalStepperForm = this._formBuilder.group({
             step1: this._formBuilder.group({
@@ -49,7 +61,7 @@ export class NewProjectComponent implements OnInit
                 sponsorName: ['', Validators.required],
                 ownerName: ['', Validators.required],
                 sponsorEmail: ['', [Validators.required, Validators.email]],
-                ownerEmail : ['', [Validators.required, Validators.email]],
+                ownerEmail: ['', [Validators.required, Validators.email]],
             }),
             step2: this._formBuilder.group({
                 name: ['', Validators.required],
@@ -60,21 +72,21 @@ export class NewProjectComponent implements OnInit
             }),
             step3: this._formBuilder.group({
                 productName: ['', Validators.required],
-                productCategory : ['', Validators.required],
+                productCategory: ['', Validators.required],
                 productPortfolio: ['', Validators.required],
-                targetMarketSegment:['', Validators.required],
+                targetMarketSegment: ['', Validators.required],
                 productOverview: ['', Validators.required],
                 productFeatures: [''],
                 targetEntity: ['', Validators.required],
                 subsidiary: [''],
-                byEmail          : this._formBuilder.group({
-                    companyNews     : [true],
+                byEmail: this._formBuilder.group({
+                    companyNews: [true],
                     featuredProducts: [false],
-                    messages        : [true],
+                    messages: [true],
                 }),
                 pushNotifications: ['everything', Validators.required],
             }),
         });
-   
+
     }
 }

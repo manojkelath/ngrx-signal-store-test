@@ -5,10 +5,12 @@ import { NewProjectService } from './new-project.service';
 
 export default [
     {
-        path     : '',
+        path: '',
         component: NewProjectComponent,
-        resolve  : {
+        resolve: {
             data: () => inject(NewProjectService).getData(),
+            owners: () => inject(NewProjectService).getOwners(),
+            sponsors: () => inject(NewProjectService).getSponsors(),
         },
     },
 ] as Routes;

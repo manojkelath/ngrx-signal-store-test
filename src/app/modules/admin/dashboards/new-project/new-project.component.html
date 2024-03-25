@@ -36,8 +36,9 @@
                                             [formControlName]="'sponsorName'"
                                             [placeholder]="'Sponsor Name'"
                                             required>
-                                            <mat-option value="country-1">Sponsor A</mat-option>
-                                            <mat-option value="country-2">Sponsor B</mat-option>
+                                            <ng-container *ngFor="let sponsor of sponsors">
+                                                <mat-option  [value]="sponsor.value">{{sponsor.name}}</mat-option>
+                                            </ng-container>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -63,8 +64,9 @@
                                         [formControlName]="'ownerName'"
                                         [placeholder]="'Owner Name'"
                                         required>
-                                        <mat-option value="country-1">Owner A</mat-option>
-                                        <mat-option value="country-2">Owner B</mat-option>
+                                        <ng-container *ngFor="let owner of owners">
+                                            <mat-option  [value]="owner.value">{{owner.name}}</mat-option>
+                                        </ng-container>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
