@@ -1,27 +1,27 @@
-import { DecimalPipe, NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
-import { NewProjectService } from './new-project.service';
 import { ActivatedRoute } from '@angular/router';
 
 export interface Owner {
     name: string;
-    value: string
+    value: string;
+    email: string
 }
 
 export interface Sponsor {
     name: string;
-    value: string
+    value: string;
+    email: string
 }
 
 @Component({
@@ -36,6 +36,7 @@ export class NewProjectComponent implements OnInit {
     horizontalStepperForm: UntypedFormGroup;
     owners: Owner[];
     sponsors: Sponsor[];
+
     /**
      * Constructor
      */
@@ -87,6 +88,31 @@ export class NewProjectComponent implements OnInit {
                 pushNotifications: ['everything', Validators.required],
             }),
         });
+    }
 
+    updateSponsorEmail() {
+
+        const selectedSponsor = this.horizontalStepperForm.get('step1.sponsorName').value;
+        const sponsor = this.sponsors.find(option => option.value === selectedSponsor);
+        if (sponsor) {
+            // Set sponsoremail value based on selected sponsor
+            this.horizontalStepperForm.get('step1.sponsorEmail').setValue(sponsor.email);
+        } else {
+            // Reset sponsoremail if selected sponsor is not found
+            this.horizontalStepperForm.get('sponsorEmail').setValue('');
+        }
+
+    }
+
+    updateOwnerEmail() {
+        const selectedOwner = this.horizontalStepperForm.get('step1.ownerName').value;
+        const owner = this.sponsors.find(option => option.value === selectedOwner);
+        if (owner) {
+            // Set sponsoremail value based on selected owner
+            this.horizontalStepperForm.get('step1.ownerEmail').setValue(owner.email);
+        } else {
+            // Reset sponsoremail if selected owner is not found
+            this.horizontalStepperForm.get('ownerEmail').setValue('');
+        }
     }
 }

@@ -1604,21 +1604,25 @@ export const analytics = {
 export const owners = [
     {
         "name": "Manoj Kelath",
-        "value": "ML"
+        "value": "ML",
+        "email": "manoj@abc.com"
     },
     {
         "name": "Divya Mohanan",
-        "value": "DM"
+        "value": "DM",
+        "email": "divya@abc.com"
     }
 ];
 
 export const sponsors = [
     {
         "name": "Manoj Kelath",
-        "value": "ML"
+        "value": "ML",
+        "email": "manoj@abc.com"
     },
     {
         "name": "Divya Mohanan",
-        "value": "DM"
+        "value": "DM",
+        "email": "divya@abc.com"
     }
 ];
