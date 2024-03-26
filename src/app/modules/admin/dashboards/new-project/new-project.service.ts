@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class NewProjectService {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
+    formData: any;
 
     /**
      * Constructor
@@ -55,5 +56,13 @@ export class NewProjectService {
                 this._data.next(response);
             }),
         );
+    }
+
+    setFormData(data: any) {
+        this.formData = data;
+    }
+
+    getFormData() {
+        return this.formData;
     }
 }

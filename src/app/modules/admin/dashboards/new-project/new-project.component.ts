@@ -10,7 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NewProjectService } from './new-project.service';
 
 export interface Owner {
     name: string;
@@ -40,7 +41,7 @@ export class NewProjectComponent implements OnInit {
     /**
      * Constructor
      */
-    constructor(private _formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute) {
+    constructor(private _formBuilder: UntypedFormBuilder, private activatedRoute: ActivatedRoute, private newProjectService: NewProjectService, private _router: Router) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -115,4 +116,12 @@ export class NewProjectComponent implements OnInit {
             this.horizontalStepperForm.get('ownerEmail').setValue('');
         }
     }
+
+    submitForm() {
+        const formData = this.horizontalStepperForm.value;
+        this.newProjectService.setFormData(formData);
+        this._router.navigate(['project']); // specify the route you want to navigate to
+
+    }
+
 }

@@ -362,13 +362,14 @@
                                 Back
                             </button>
                             <button
+                            (click)="submitForm()"
                                 class="px-8"
                                 mat-flat-button
                                 [color]="'primary'"
                                 type="button"
                                 [disabled]="horizontalStepperStep3.stepControl.pristine || horizontalStepperStep3.stepControl.invalid"
                                 matStepperNext>
-                                Next
+                                Submit
                             </button>
                         </div>
                     </mat-step>

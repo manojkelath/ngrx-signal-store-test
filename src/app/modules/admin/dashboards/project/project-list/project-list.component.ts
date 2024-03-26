@@ -20,12 +20,12 @@ import { InventoryBrand, InventoryCategory, InventoryPagination, InventoryProduc
 import { debounceTime, map, merge, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
-    selector       : 'project-list',
-    templateUrl    : './project-list.component.html',
-    styles         : [
+    selector: 'project-list',
+    templateUrl: './project-list.component.html',
+    styles: [
         /* language=SCSS */
 
-   
+
         `
              .table-row {
                 &:hover {
@@ -51,14 +51,13 @@ import { debounceTime, map, merge, Observable, Subject, switchMap, takeUntil } f
             }
         `,
     ],
-    encapsulation  : ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations     : fuseAnimations,
-    standalone     : true,
-    imports        : [NgIf, MatProgressBarModule, MatFormFieldModule, MatIconModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatSortModule, NgFor, NgTemplateOutlet, MatPaginatorModule, NgClass, MatSlideToggleModule, MatSelectModule, MatOptionModule, MatCheckboxModule, MatRippleModule, AsyncPipe, CurrencyPipe,RouterModule],
+    animations: fuseAnimations,
+    standalone: true,
+    imports: [NgIf, MatProgressBarModule, MatFormFieldModule, MatIconModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatSortModule, NgFor, NgTemplateOutlet, MatPaginatorModule, NgClass, MatSlideToggleModule, MatSelectModule, MatOptionModule, MatCheckboxModule, MatRippleModule, AsyncPipe, CurrencyPipe, RouterModule],
 })
-export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
-{
+export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
 
@@ -87,8 +86,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         private _formBuilder: UntypedFormBuilder,
         private _inventoryService: InventoryService,
         private _router: Router
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -98,35 +96,34 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
 
-        this._inventoryService.getProducts(0,5).subscribe((res)=>{
+        this._inventoryService.getProducts(0, 5).subscribe((res) => {
             this.products = res.products;
-         });
+        });
 
         // Create the selected product form
         this.selectedProductForm = this._formBuilder.group({
-            id               : [''],
-            category         : [''],
-            name             : ['', [Validators.required]],
-            description      : [''],
-            tags             : [[]],
-            sku              : [''],
-            barcode          : [''],
-            brand            : [''],
-            vendor           : [''],
-            stock            : [''],
-            reserved         : [''],
-            cost             : [''],
-            basePrice        : [''],
-            taxPercent       : [''],
-            price            : [''],
-            weight           : [''],
-            thumbnail        : [''],
-            images           : [[]],
+            id: [''],
+            category: [''],
+            name: ['', [Validators.required]],
+            description: [''],
+            tags: [[]],
+            sku: [''],
+            barcode: [''],
+            brand: [''],
+            vendor: [''],
+            stock: [''],
+            reserved: [''],
+            cost: [''],
+            basePrice: [''],
+            taxPercent: [''],
+            price: [''],
+            weight: [''],
+            thumbnail: [''],
+            images: [[]],
             currentImageIndex: [0], // Image index that is currently being viewed
-            active           : [false],
+            active: [false],
         });
 
 
@@ -134,8 +131,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         // Get the pagination
         this._inventoryService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((pagination: InventoryPagination) =>
-            {
+            .subscribe((pagination: InventoryPagination) => {
                 // Update the pagination
                 this.pagination = pagination;
 
@@ -151,10 +147,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * After view init
      */
-    ngAfterViewInit(): void
-    {
-        if ( this._sort && this._paginator )
-        {
+    ngAfterViewInit(): void {
+        if (this._sort && this._paginator) {
             // Set the initial sort
 
         }
@@ -163,8 +157,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
@@ -179,11 +172,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param productId
      */
-    toggleDetails(productId: string): void
-    {
+    toggleDetails(productId: string): void {
         // If the product is already selected...
-        if ( this.selectedProduct && this.selectedProduct.id === productId )
-        {
+        if (this.selectedProduct && this.selectedProduct.id === productId) {
             // Close the details
             this.closeDetails();
             return;
@@ -191,8 +182,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
 
         // Get the product by id
         this._inventoryService.getProductById(productId)
-            .subscribe((product) =>
-            {
+            .subscribe((product) => {
                 // Set the selected product
                 this.selectedProduct = product;
 
@@ -207,16 +197,14 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * Close the details
      */
-    closeDetails(): void
-    {
+    closeDetails(): void {
         this.selectedProduct = null;
     }
 
     /**
      * Cycle through images of selected product
      */
-    cycleImages(forward: boolean = true): void
-    {
+    cycleImages(forward: boolean = true): void {
         // Get the image count and current image index
         const count = this.selectedProductForm.get('images').value.length;
         const currentIndex = this.selectedProductForm.get('currentImageIndex').value;
@@ -226,13 +214,11 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         const prevIndex = currentIndex - 1 < 0 ? count - 1 : currentIndex - 1;
 
         // If cycling forward...
-        if ( forward )
-        {
+        if (forward) {
             this.selectedProductForm.get('currentImageIndex').setValue(nextIndex);
         }
         // If cycling backwards...
-        else
-        {
+        else {
             this.selectedProductForm.get('currentImageIndex').setValue(prevIndex);
         }
     }
@@ -240,8 +226,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * Toggle the tags edit mode
      */
-    toggleTagsEditMode(): void
-    {
+    toggleTagsEditMode(): void {
         this.tagsEditMode = !this.tagsEditMode;
     }
 
@@ -250,8 +235,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param event
      */
-    filterTags(event): void
-    {
+    filterTags(event): void {
         // Get the value
         const value = event.target.value.toLowerCase();
 
@@ -264,17 +248,14 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param event
      */
-    filterTagsInputKeyDown(event): void
-    {
+    filterTagsInputKeyDown(event): void {
         // Return if the pressed key is not 'Enter'
-        if ( event.key !== 'Enter' )
-        {
+        if (event.key !== 'Enter') {
             return;
         }
 
         // If there is no tag available...
-        if ( this.filteredTags.length === 0 )
-        {
+        if (this.filteredTags.length === 0) {
             // Create the tag
             this.createTag(event.target.value);
 
@@ -290,13 +271,11 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         const isTagApplied = this.selectedProduct.tags.find(id => id === tag.id);
 
         // If the found tag is already applied to the product...
-        if ( isTagApplied )
-        {
+        if (isTagApplied) {
             // Remove the tag from the product
             this.removeTagFromProduct(tag);
         }
-        else
-        {
+        else {
             // Otherwise add the tag to the product
             this.addTagToProduct(tag);
         }
@@ -307,16 +286,14 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param title
      */
-    createTag(title: string): void
-    {
+    createTag(title: string): void {
         const tag = {
             title,
         };
 
         // Create tag on the server
         this._inventoryService.createTag(tag)
-            .subscribe((response) =>
-            {
+            .subscribe((response) => {
                 // Add the tag to the product
                 this.addTagToProduct(response);
             });
@@ -328,8 +305,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      * @param tag
      * @param event
      */
-    updateTagTitle(tag: InventoryTag, event): void
-    {
+    updateTagTitle(tag: InventoryTag, event): void {
         // Update the title on the tag
         tag.title = event.target.value;
 
@@ -347,8 +323,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param tag
      */
-    deleteTag(tag: InventoryTag): void
-    {
+    deleteTag(tag: InventoryTag): void {
         // Delete the tag from the server
         this._inventoryService.deleteTag(tag.id).subscribe();
 
@@ -361,8 +336,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param tag
      */
-    addTagToProduct(tag: InventoryTag): void
-    {
+    addTagToProduct(tag: InventoryTag): void {
         // Add the tag
         this.selectedProduct.tags.unshift(tag.id);
 
@@ -378,8 +352,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param tag
      */
-    removeTagFromProduct(tag: InventoryTag): void
-    {
+    removeTagFromProduct(tag: InventoryTag): void {
         // Remove the tag
         this.selectedProduct.tags.splice(this.selectedProduct.tags.findIndex(item => item === tag.id), 1);
 
@@ -396,14 +369,11 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      * @param tag
      * @param change
      */
-    toggleProductTag(tag: InventoryTag, change: MatCheckboxChange): void
-    {
-        if ( change.checked )
-        {
+    toggleProductTag(tag: InventoryTag, change: MatCheckboxChange): void {
+        if (change.checked) {
             this.addTagToProduct(tag);
         }
-        else
-        {
+        else {
             this.removeTagFromProduct(tag);
         }
     }
@@ -413,8 +383,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      *
      * @param inputValue
      */
-    shouldShowCreateTagButton(inputValue: string): boolean
-    {
+    shouldShowCreateTagButton(inputValue: string): boolean {
         return !!!(inputValue === '' || this.tags.findIndex(tag => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1);
     }
 
@@ -424,8 +393,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * Update the selected product using the form data
      */
-    updateSelectedProduct(): void
-    {
+    updateSelectedProduct(): void {
         // Get the product object
         const product = this.selectedProductForm.getRawValue();
 
@@ -433,8 +401,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         delete product.currentImageIndex;
 
         // Update the product on the server
-        this._inventoryService.updateProduct(product.id, product).subscribe(() =>
-        {
+        this._inventoryService.updateProduct(product.id, product).subscribe(() => {
             // Show a success message
             this.showFlashMessage('success');
         });
@@ -443,11 +410,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * Delete the selected product using the form data
      */
-    deleteSelectedProduct(): void
-    {
+    deleteSelectedProduct(): void {
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
-            title  : 'Delete product',
+            title: 'Delete product',
             message: 'Are you sure you want to remove this product? This action cannot be undone!',
             actions: {
                 confirm: {
@@ -457,17 +423,14 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         });
 
         // Subscribe to the confirmation dialog closed action
-        confirmation.afterClosed().subscribe((result) =>
-        {
+        confirmation.afterClosed().subscribe((result) => {
             // If the confirm button pressed...
-            if ( result === 'confirmed' )
-            {
+            if (result === 'confirmed') {
                 // Get the product object
                 const product = this.selectedProductForm.getRawValue();
 
                 // Delete the product on the server
-                this._inventoryService.deleteProduct(product.id).subscribe(() =>
-                {
+                this._inventoryService.deleteProduct(product.id).subscribe(() => {
                     // Close the details
                     this.closeDetails();
                 });
@@ -478,8 +441,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
     /**
      * Show flash message
      */
-    showFlashMessage(type: 'success' | 'error'): void
-    {
+    showFlashMessage(type: 'success' | 'error'): void {
         // Show the message
         this.flashMessage = type;
 
@@ -487,8 +449,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
         this._changeDetectorRef.markForCheck();
 
         // Hide it after 3 seconds
-        setTimeout(() =>
-        {
+        setTimeout(() => {
             this.flashMessage = null;
 
             // Mark for check
@@ -502,12 +463,11 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy
      * @param index
      * @param item
      */
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
     createNewProject() {
         this._router.navigate(['new-project']); // specify the route you want to navigate to
-  }
+    }
 }
