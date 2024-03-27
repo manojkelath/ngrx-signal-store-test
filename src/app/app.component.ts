@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthService } from './core/auth/auth.service';
 
 
 
@@ -13,15 +14,18 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     standalone: true,
     imports: [RouterOutlet, TranslateModule],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     /**
      * Constructor
      */
-    constructor(public translate: TranslateService) {
+    constructor(private authService: AuthService, public translate: TranslateService) {
         translate.addLangs(['en', 'ar']);
         translate.setDefaultLang('ar');
 
         const browserLang = translate.getBrowserLang();
         translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    }
+    ngOnInit(): void {
+        this.authService.getUserInfo();
     }
 }
