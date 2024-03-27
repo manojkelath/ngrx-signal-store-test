@@ -17,6 +17,7 @@ import { NewProjectService } from '../new-project/new-project.service';
 export class ProjectComponent implements OnInit {
 
     formData: any;
+    projectsList: any;
     /**
      * Constructor
      */
@@ -38,7 +39,4 @@ export class ProjectComponent implements OnInit {
         this.formData = this._newProjectService.getFormData();
 
     }
-
-
-
 }
