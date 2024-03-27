@@ -16,6 +16,7 @@ export class AuthService {
     private _authenticated: boolean = false;
     private _httpClient = inject(HttpClient);
     private _userService = inject(UserService);
+    public user: any; // model this later
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -56,10 +57,12 @@ export class AuthService {
 
     mapUserLoginInfoToPortal = (loginInfo: ILoginInfoModel): ILoginInfoModel => (
         {
-            'password': 'Demo4321#',
-            'user': 'kloudville.demo.ecommerce@gmail.com'
+            'password': loginInfo.password,
+            'user': loginInfo.email
         }
     );
+
+
 
     /**
      * Sign in
@@ -75,15 +78,8 @@ export class AuthService {
 
         return this._httpClient.post('api/service/idm/authentication/login', this.mapUserLoginInfoToPortal(credentials)).pipe(
             switchMap((response: any) => {
-                // Store the access token in the local storage
-                this.accessToken = response.accessToken;
-
-                // Set the authenticated flag to true
+                // // Set the authenticated flag to true
                 this._authenticated = true;
-
-                // Store the user on the user service
-                this._userService.user = response.user;
-
                 // Return a new observable with the response
                 return of(response);
             }),
@@ -182,11 +178,4 @@ export class AuthService {
         return this.signInUsingToken();
     }
 
-
-    public getUserInfo() {
-        return this._httpClient.get(`api/service/idm/user/getUserInfo`).subscribe((user: any) => {
-            console.log('the user is::', user);
-        });
-
-    }
 }

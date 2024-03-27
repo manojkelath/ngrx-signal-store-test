@@ -1,11 +1,11 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideFuse } from '@fuse';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, tap } from 'rxjs';
 import { appRoutes } from 'app/app.routes';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
@@ -13,16 +13,33 @@ import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { UserService } from './core/user/user.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
+export function initializeApp(http: HttpClient, userService: UserService) {
+    return (): Promise<any> =>
+        firstValueFrom(
+            http
+                .get("api/service/idm/user/getUserInfo")
+                .pipe(tap(user => { userService.setUserInfo(user) }))
+
+        );
+}
+
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
         provideHttpClient(),
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeApp,
+            multi: true,
+            deps: [HttpClient, UserService],
+        },
         importProvidersFrom(
             TranslateModule.forRoot({
                 loader: {
