@@ -1,5 +1,5 @@
-import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -12,68 +12,51 @@ import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function createTranslateLoader(httpClient: HttpClient) {
+    return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
         provideHttpClient(),
+        importProvidersFrom(
+            TranslateModule.forRoot({
+                loader: {
+                    provide: TranslateLoader,
+                    useFactory: createTranslateLoader,
+                    deps: [HttpClient],
+                },
+                defaultLanguage: 'en'
+            })
+        ),
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
-            withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
+            withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
         ),
 
         // Material Date Adapter
         {
-            provide : DateAdapter,
+            provide: DateAdapter,
             useClass: LuxonDateAdapter,
         },
         {
-            provide : MAT_DATE_FORMATS,
+            provide: MAT_DATE_FORMATS,
             useValue: {
-                parse  : {
+                parse: {
                     dateInput: 'D',
                 },
                 display: {
-                    dateInput         : 'DDD',
-                    monthYearLabel    : 'LLL yyyy',
-                    dateA11yLabel     : 'DD',
+                    dateInput: 'DDD',
+                    monthYearLabel: 'LLL yyyy',
+                    dateA11yLabel: 'DD',
                     monthYearA11yLabel: 'LLLL yyyy',
                 },
             },
-        },
-
-        // Transloco Config
-        provideTransloco({
-            config: {
-                availableLangs      : [
-                    {
-                        id   : 'en',
-                        label: 'English',
-                    },
-                    {
-                        id   : 'ar',
-                        label: 'Arabic',
-                    },
-                ],
-                defaultLang         : 'en',
-                fallbackLang        : 'en',
-                reRenderOnLangChange: true,
-                prodMode            : true,
-            },
-            loader: TranslocoHttpLoader,
-        }),
-        {
-            // Preload the default language before the app starts to prevent empty/jumping content
-            provide   : APP_INITIALIZER,
-            useFactory: () =>
-            {
-                const translocoService = inject(TranslocoService);
-                const defaultLang = translocoService.getDefaultLang();
-                translocoService.setActiveLang(defaultLang);
-
-                return () => firstValueFrom(translocoService.load(defaultLang));
-            },
-            multi     : true,
         },
 
         // Fuse
@@ -81,42 +64,42 @@ export const appConfig: ApplicationConfig = {
         provideIcons(),
         provideFuse({
             mockApi: {
-                delay   : 0,
+                delay: 0,
                 services: mockApiServices,
             },
-            fuse   : {
-                layout : 'classic',
-                scheme : 'light',
+            fuse: {
+                layout: 'classic',
+                scheme: 'light',
                 screens: {
                     sm: '600px',
                     md: '960px',
                     lg: '1280px',
                     xl: '1440px',
                 },
-                theme  : 'theme-default',
-                themes : [
+                theme: 'theme-default',
+                themes: [
                     {
-                        id  : 'theme-default',
+                        id: 'theme-default',
                         name: 'Default',
                     },
                     {
-                        id  : 'theme-brand',
+                        id: 'theme-brand',
                         name: 'Brand',
                     },
                     {
-                        id  : 'theme-teal',
+                        id: 'theme-teal',
                         name: 'Teal',
                     },
                     {
-                        id  : 'theme-rose',
+                        id: 'theme-rose',
                         name: 'Rose',
                     },
                     {
-                        id  : 'theme-purple',
+                        id: 'theme-purple',
                         name: 'Purple',
                     },
                     {
-                        id  : 'theme-amber',
+                        id: 'theme-amber',
                         name: 'Amber',
                     },
                 ],
