@@ -26,6 +26,6 @@ export class AppComponent implements OnInit {
         translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     }
     ngOnInit(): void {
-        this.authService.getUserInfo();
+        // this.authService.getUserInfo();
     }
 }
